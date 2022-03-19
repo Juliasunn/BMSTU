@@ -1,0 +1,1 @@
+cmd_/home/julia/Documents/OS_6/lab_03/md1.ko := ld -r  -m elf_x86_64  --build-id=sha1  -T scripts/module.lds -o /home/julia/Documents/OS_6/lab_03/md1.ko /home/julia/Documents/OS_6/lab_03/md1.o /home/julia/Documents/OS_6/lab_03/md1.mod.o;  true

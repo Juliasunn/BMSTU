@@ -1,0 +1,1 @@
+cmd_/home/julia/Documents/OS_6/lab_03/part_1/Module.symvers := sed 's/\.ko$$/\.o/' /home/julia/Documents/OS_6/lab_03/part_1/modules.order | scripts/mod/modpost -m -a  -o /home/julia/Documents/OS_6/lab_03/part_1/Module.symvers -e -i Module.symvers   -T -

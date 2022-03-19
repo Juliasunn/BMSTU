@@ -1,0 +1,1 @@
+cmd_/home/julia/Documents/OS_6/lab_03/modules.order := {   echo /home/julia/Documents/OS_6/lab_03/md1.ko;   echo /home/julia/Documents/OS_6/lab_03/md3.ko; :; } | awk '!x[$$0]++' - > /home/julia/Documents/OS_6/lab_03/modules.order
