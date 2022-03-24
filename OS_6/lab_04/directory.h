@@ -9,4 +9,4 @@
 #include <sys/stat.h> 
 
 
-int read_directory(const char *dirname);
+int read_directory(const char *dirname, FILE *out_file);

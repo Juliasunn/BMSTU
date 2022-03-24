@@ -1,80 +1,166 @@
 
-                                /proc/self/cmdline
-./app.exe
+                                /proc/13443/cmdline
+qtcreator
 
 
-                                /proc/self/cwd
-/home/julia/Documents/OS_6/lab_04
+                                /proc/13443/cwd
+/home/julia
 
-                                /proc/self/exe
-/home/julia/Documents/OS_6/lab_04/app.exe
+                                /proc/13443/exe
+/usr/bin/qtcreator
 
-                                /proc/self/root
+                                /proc/13443/root
 /
 
-                                /proc/self/stat
-pid              16924           
-comm             (app.exe)       
-state            R               
-ppid             16923           
-pgrp             16923           
-session          11999           
-tty_nr           34816           
-tpgid            16923           
-flags            4194560         
-minflt           106             
-cminflt          0               
-majflt           0               
-cmajflt          0               
-utime            0               
-stime            0               
-cutime           0               
-cstime           0               
+                                /proc/13443/fd
+/proc/13443/fd/
+	|--0/ is symbol link to file:/dev/null
+	|--1/ is symbol link to file:socket:[183240]
+	|--2/ is symbol link to file:socket:[183240]
+	|--3/ is symbol link to file:socket:[183243]
+	|--4/ is symbol link to file:anon_inode:[eventfd]
+	|--5/ is symbol link to file:anon_inode:[eventfd]
+	|--6/ is symbol link to file:socket:[183245]
+	|--7/ is symbol link to file:socket:[184005]
+	|--8/ is symbol link to file:anon_inode:[eventfd]
+	|--9/ is symbol link to file:socket:[184007]
+	|--10/ is symbol link to file:anon_inode:[eventfd]
+	|--11/ is symbol link to file:anon_inode:inotify
+	|--12/ is symbol link to file:anon_inode:[eventfd]
+	|--13/ is symbol link to file:anon_inode:[eventfd]
+	|--14/ is symbol link to file:socket:[184008]
+	|--15/ is symbol link to file:/dev/dri/card0
+	|--16/ is symbol link to file:/dev/dri/card0
+	|--17/ is symbol link to file:/dev/dri/card0
+	|--18/ is symbol link to file:/dev/dri/card0
+	|--19/ is symbol link to file:socket:[184012]
+	|--20/ is symbol link to file:/home/julia/.config/QtProject/QtCreator.db
+	|--21/ is symbol link to file:/tmp/qtsingleapplication-b862-3e8-lockfile
+	|--22/ is symbol link to file:socket:[184013]
+	|--23/ is symbol link to file:/home/julia/.local/share/gvfs-metadata/root (deleted)
+	|--24/ is symbol link to file:/usr/share/mime/mime.cache
+	|--25/ is symbol link to file:socket:[184014]
+	|--26/ is symbol link to file:/usr/share/icons/Yaru/icon-theme.cache
+	|--27/ is symbol link to file:/home/julia/.local/share/gvfs-metadata/root-fad74b0f.log (deleted)
+	|--28/ is symbol link to file:/usr/share/icons/Humanity/icon-theme.cache
+	|--29/ is symbol link to file:/usr/share/icons/Adwaita/icon-theme.cache
+	|--30/ is symbol link to file:socket:[183251]
+	|--31/ is symbol link to file:anon_inode:inotify
+	|--32/ is symbol link to file:socket:[181873]
+	|--33/ is symbol link to file:anon_inode:inotify
+	|--34/ is symbol link to file:pipe:[184016]
+	|--35/ is symbol link to file:/home/julia/.local/share/gvfs-metadata/home (deleted)
+	|--36/ is symbol link to file:/home/julia/.local/share/gvfs-metadata/home-48f0548b.log (deleted)
+	|--37/ is symbol link to file:pipe:[184017]
+	|--38/ is symbol link to file:/home/julia/.local/share/gvfs-metadata/trash:
+	|--39/ is symbol link to file:/home/julia/.local/share/gvfs-metadata/trash:-d6153849.log
+	|--40/ is symbol link to file:anon_inode:[eventfd]
+	|--41/ is symbol link to file:pipe:[184018]
+	|--42/ is symbol link to file:anon_inode:[eventfd]
+	|--43/ is symbol link to file:/tmp/QtCreator-BUYkbS/#6947242 (deleted)
+	|--44/ is symbol link to file:anon_inode:[eventfd]
+	|--45/ is symbol link to file:pipe:[184020]
+	|--46/ is symbol link to file:pipe:[184020]
+	|--47/ is symbol link to file:/tmp/QtCreator-BUYkbS/#6947287 (deleted)
+	|--48/ is symbol link to file:socket:[184024]
+	|--49/ is symbol link to file:/home/julia/.config/QtProject/qtcreator/helpcollection.qhc
+	|--50/ is symbol link to file:anon_inode:inotify
+	|--52/ is symbol link to file:pipe:[204618]
+	|--53/ is symbol link to file:pipe:[204619]
+	|--54/ is symbol link to file:anon_inode:inotify
+	|--56/ is symbol link to file:pipe:[204620]
+	|--60/ is symbol link to file:pipe:[204622]
+	|--61/ is symbol link to file:pipe:[204622]
+
+                                /proc/13443/stat
+pid              13443           
+comm             (qtcreator)     
+state            S               
+ppid             1513            
+pgrp             1513            
+session          1513            
+tty_nr           0               
+tpgid            -1              
+flags            4194304         
+minflt           84578           
+cminflt          96239           
+majflt           942             
+cmajflt          642             
+utime            762             
+stime            364             
+cutime           153             
+cstime           75              
 priority         20              
 nice             0               
-num_threads      1               
+num_threads      10              
 itrealvalue      0               
-starttime        1757762         
-vsize            2555904         
-rss              144             
+starttime        7594943         
+vsize            1533378560      
+rss              38060           
 rlim             18446744073709551615
-startcode        94038548131840  
-endcode          94038548135505  
-startstack       140725549840672 
+startcode        94618422067200  
+endcode          94618422131445  
+startstack       140734645780160 
 kstkesp          0               
 kstkeip          0               
 signal           0               
 blocked          0               
-sigignore        0               
-sigcatch         0               
+sigignore        16781312        
+sigcatch         65536           
 wchan            0               
 nswap            0               
 cnswap           0               
 
-                                /proc/self/environ
-COLORTERM=truecolor
-LC_ADDRESS=ru_RU.UTF-8
-LC_NAME=ru_RU.UTF-8
-LC_MONETARY=ru_RU.UTF-8
-XAUTHORITY=/run/user/1000/gdm/Xauthority
-LC_PAPER=ru_RU.UTF-8
-LANG=en_US.UTF-8
-LS_COLORS=rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:
-TERM=xterm-256color
-LC_IDENTIFICATION=ru_RU.UTF-8
-DISPLAY=:0
-LC_TELEPHONE=ru_RU.UTF-8
-LC_MEASUREMENT=ru_RU.UTF-8
+                                /proc/13443/environ
+GJS_DEBUG_TOPICS=JS ERROR;JS LOG
 LC_TIME=ru_RU.UTF-8
-PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin
-LC_NUMERIC=ru_RU.UTF-8
-MAIL=/var/mail/root
-LOGNAME=root
-USER=root
-HOME=/root
+USER=julia
+SSH_AGENT_PID=1458
+XDG_SESSION_TYPE=x11
+SHLVL=0
+HOME=/home/julia
+DESKTOP_SESSION=ubuntu
+GIO_LAUNCHED_DESKTOP_FILE=/usr/share/applications/org.qt-project.qtcreator.desktop
+GTK_MODULES=gail:atk-bridge
+GNOME_SHELL_SESSION_MODE=ubuntu
+LC_MONETARY=ru_RU.UTF-8
+MANAGERPID=1281
+DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus
+GIO_LAUNCHED_DESKTOP_FILE_PID=13443
+IM_CONFIG_PHASE=1
+LOGNAME=julia
+_=/usr/bin/dbus-update-activation-environment
+JOURNAL_STREAM=8:44590
+XDG_SESSION_CLASS=user
+USERNAME=julia
+GNOME_DESKTOP_SESSION_ID=this-is-deprecated
+WINDOWPATH=2
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
+SESSION_MANAGER=local/julia-HP-Pavilion-Laptop-13-an0xxx:@/tmp/.ICE-unix/1498,unix/julia-HP-Pavilion-Laptop-13-an0xxx:/tmp/.ICE-unix/1498
+INVOCATION_ID=6ffd6c4f7d48421c956da26fad831f62
+LC_ADDRESS=ru_RU.UTF-8
+XDG_RUNTIME_DIR=/run/user/1000
+XDG_MENU_PREFIX=gnome-
+DISPLAY=:0
+LANG=en_US.UTF-8
+LC_TELEPHONE=ru_RU.UTF-8
+XDG_CURRENT_DESKTOP=ubuntu:GNOME
+XAUTHORITY=/run/user/1000/gdm/Xauthority
+XDG_SESSION_DESKTOP=ubuntu
+XMODIFIERS=@im=ibus
+SSH_AUTH_SOCK=/run/user/1000/keyring/ssh
+LC_NAME=ru_RU.UTF-8
 SHELL=/bin/bash
-SUDO_COMMAND=./app.exe
-SUDO_USER=julia
-SUDO_UID=1000
-SUDO_GID=1000
+QT_ACCESSIBILITY=1
+GDMSESSION=ubuntu
+LC_MEASUREMENT=ru_RU.UTF-8
+LC_IDENTIFICATION=ru_RU.UTF-8
+GPG_AGENT_INFO=/run/user/1000/gnupg/S.gpg-agent:0:1
+GJS_DEBUG_OUTPUT=stderr
+QT_IM_MODULE=ibus
+PWD=/home/julia
+XDG_DATA_DIRS=/usr/share/ubuntu:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop
+XDG_CONFIG_DIRS=/etc/xdg/xdg-ubuntu:/etc/xdg
+LC_NUMERIC=ru_RU.UTF-8
+LC_PAPER=ru_RU.UTF-8
 

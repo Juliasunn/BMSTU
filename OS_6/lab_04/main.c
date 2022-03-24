@@ -39,7 +39,7 @@ int read_dir(const char *process_dir, const char *dir_name, FILE *out_file)
 
 	printf("[DEBUG INFO: file name] %s\n", path);
 
-	read_directory(path);	  
+	read_directory(path, out_file);	  
 }
 
 
@@ -73,9 +73,9 @@ int read_proc_file(const char *process_dir, const char *file_name, FILE *out_fil
 
 int main(int argc, char *argv[])
 {
-	char process_dir[MAX_PATH_LENGTH] = "/proc";
+	char process_dir[MAX_PATH_LENGTH] = "/proc/";
 	if (argc != 2)
-		strcat(process_dir, "/self"); //Файл /proc/self является символической ссылкой на каталог, соответствующий текущему процессу.
+		strcat(process_dir, "self"); //Файл /proc/self является символической ссылкой на каталог, соответствующий текущему процессу.
         else
         	strcat(process_dir, argv[1]); //иначе PID процесса передается как параметр 
         FILE *out_file = fopen("process_info.txt", "w"); //текстовый файл куда выводим информацию о процессе

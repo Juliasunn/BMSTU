@@ -1,0 +1,3 @@
+#!/usr/bin/bash 
+echo "This script runs my programm with qtcreator process PID." 
+sudo ./app.exe $(pgrep qtcreator)

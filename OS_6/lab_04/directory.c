@@ -5,20 +5,49 @@
 #define FTW_DNR 3 // каталог, недоступный для чтения
 #define FTW_NS 4 // файл, информацию о котором нельзя получить с помощью stat
 
+#define LINK_T 0
+#define DIR_T 1
+#define FILE_T 2
 
 
-int printer(const char *pathname, FILE *f, const char *title)
+int printer(const char *pathname, int depth, int file_type, FILE *out_file, const char *title)
 { 
+	//printf(depth);
+	if (depth == 0)	
+		fprintf(out_file, "\n                                %s\n", title);
+	else
+	{
+		for (int i = 0; i < depth; ++i)
+			fprintf(out_file, "\t");
+		fprintf(out_file, "|--");
+	}
+
+
 	char buf[100];
-	printf( "-- %s/ ", pathname);
-	readlink(pathname, buf, 100);
-	printf("%s/\n", buf);
+	if (file_type == FILE_T)
+	{
+		fprintf(out_file, "%s\n", pathname);
+		return 0;
+	}
+	if (file_type == DIR_T)
+	{
+		fprintf(out_file, "%s/\n", pathname);
+		return 0;
+	}	
+	
+	if (file_type == LINK_T)
+	{
+		fprintf(out_file,  "%s/ is symbol link to file:", pathname);
+		int bytes_read = readlink(pathname, buf, 100);
+		buf[bytes_read] = '\0';
+		fprintf(out_file, "%s\n", buf);
+	}
 	return 0;
 }
 
 
 // Обход дерева каталогов
-int dopath(const char *filename, int depth, const char *title, int func(const char *, FILE *, const char *))
+int dopath(const char *filename, int depth, int print_fun(const char *, int, int, FILE *, const char *), const char *title, FILE *out_file)
 {
 	struct stat statbuf;
 	struct dirent * dirp;
@@ -28,17 +57,24 @@ int dopath(const char *filename, int depth, const char *title, int func(const ch
 	if ((ret = lstat(filename, &statbuf)) != 0) // ошибка 																		
 		return ret; 
 
-	for (int i = 0; i < depth; ++i)
-		printf("|\t");
+	//for (int i = 0; i < depth; ++i)
+	//	printf("|\t");
 
 	if (S_ISDIR(statbuf.st_mode) == 0) // не каталог 
-		return(func(filename, &statbuf, FTW_F)); // отобразить в дереве 
+	{
+		if (S_ISLNK(statbuf.st_mode) == 0)// не симв. ссылка
+			return(print_fun(filename, depth, FILE_T, out_file, title)); 
+		return(print_fun(filename, depth, LINK_T, out_file, title));  
+	}
+	//	return(print_fun(filename, depth, LINK_T, out_file, title)); // отобразить в дереве 
+	print_fun(filename, depth, DIR_T, out_file, title);//каталог отобразить в дереве 
 
-	if ((ret = func(filename, &statbuf, FTW_D)) != 0)
-		return(ret);
+	//if ((ret = func(filename, &statbuf, FTW_D)) != 0)
+	//	return(ret);
 
 	if ((dp = opendir(filename)) == NULL) // каталог недоступен
-		return(func(filename, &statbuf, FTW_DNR));
+	//	return(print_fun(filename, depth, DIR_T, out_file, title));
+		return 0;
     
 	chdir(filename); //меняет текущий рабочий каталог процесса. Без этого пришлось бы приписывать в цикле к dirp->d_name сзади filename ?? тк в dirp->d_name только имя файла без пути
 	while ((dirp = readdir(dp)) != NULL && ret == 0)
@@ -46,7 +82,7 @@ int dopath(const char *filename, int depth, const char *title, int func(const ch
 		if (strcmp(dirp->d_name, ".") != 0 &&
 			strcmp(dirp->d_name, "..") != 0 ) // пропуск каталогов . и .. попали в текущую родительску директорию
 		{
-			ret = dopath(dirp->d_name, depth + 1, func);
+			ret = dopath(dirp->d_name, depth + 1, print_fun, title, out_file);
 		}
 	}
     
@@ -58,7 +94,7 @@ int dopath(const char *filename, int depth, const char *title, int func(const ch
 	return(ret);    
 }
 
-int read_directory(const char *dirname)
+int read_directory(const char *dirname, FILE *out_file)
 {
-	return dopath(dirname, 0, printer);
+	return dopath(dirname, 0, printer, dirname, out_file);
 }
