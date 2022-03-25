@@ -1,0 +1,1 @@
+cmd_/home/julia/Documents/OS_6/lab_04/part_02/cookie_module.mod := { echo  /home/julia/Documents/OS_6/lab_04/part_02/cookie_module.o;  echo; } > /home/julia/Documents/OS_6/lab_04/part_02/cookie_module.mod
