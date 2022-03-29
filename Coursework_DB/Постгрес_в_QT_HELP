@@ -1,0 +1,51 @@
+(?) Как же установить этот сраный драйвер для постгреса на Убунту?
+Открываем фиолетовое окошка shell-а и вводим команду 
+1) pg_config
+И в выхлопе ищем этот макрос, он нам пригодится в 6 пункте
+INCLUDEDIR = /usr/include/postgresql
+
+Теперь грузим вот эти библиотеки постгреса:
+2) sudo apt-get install libpq-dev
+
+3) sudo apt-get install qtbase5-private-dev
+
+Узнаем нашу версию qt для вторжения в их репозиторий в 5 пункте
+4)qt version 5.12.8 (узнала когда набрала sudo aptl qt5-default)
+
+Вторгаемся и переходим в директорию с драйверами
+5) git clone -b 5.12.8 https://code.qt.io/qt/qtbase.git
+
+ cd qtbase/src/plugins/sqldrivers
+
+6) теперь компилируем драйвер используя qmake
+sudo find / -name qmake
+одна из директорий: /usr/lib/x86_64-linux-gnu/qt5/bin/qmake
+
+/usr/lib/x86_64-linux-gnu/qt5/bin/qmake -- PSQL_INCDIR=/usr/include/postgresql
+
+7)
+sudo make sub-psql
+sudo make install
+
+По идее после этого можно уже переходить в сам проект в креаторе
+в .Pro файле: 
+QT       += core gui sql
+
+-------------------------------
+Тут уже следует напоминалочка по самим базам данных 
+
+$ sudo su - julia
+
+$ psql
+
+julia=# \conninfo
+You are connected to database "julia" as user "julia" via socket in "/var/run/postgresql" at port "5432".
+
+julia=# create database music;
+CREATE DATABASE
+
+julia=# \c music
+You are now connected to database "music" as user "julia".
+
+// Running sql scripts here //
+
