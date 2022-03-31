@@ -1,22 +1,19 @@
 #ifndef SUBSCRIBE_H
 #define SUBSCRIBE_H
-#include <QList>
-#include <QSqlRecord>
-#include <QVariant>
-#include <QDate>
-#include <QString>
-#include <QDebug>
+#include "abstracttablemodel.h"
 
-class Subscribe
+class Subscribe : public AbstractTableModel
 {
 private:
-    int id;
-    QString name;
-    int price;
-    int max_time;
+    QVariant id;
+    QVariant name;
+    QVariant price;
+    QVariant max_time;
 public:
     Subscribe();
     Subscribe(const QSqlRecord &rec);
+    virtual QList<QVariant> getVarList() const override;
+    virtual QVariant getId() const override;
 };
 
 #endif // SUBSCRIBE_H

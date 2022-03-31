@@ -8,15 +8,21 @@
 class QTrackTableModel : public QAbstractTableModel
 {
 private:
-    QList<Track> trackList;
-
+    QList<AbstractTableModel *> trackList;
+    QList<QString> headerList;
+    int n_columns;
 public:
     QTrackTableModel();
-    QTrackTableModel(const QList<Track> &trackList);
+    //QTrackTableModel(const QList<Track> &trackList);
+    QTrackTableModel(const QList<AbstractTableModel *> &trackList_, QList<QString> headerList_, int n_btn);
+
     virtual QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const override;
     virtual int rowCount(const QModelIndex &parent=QModelIndex()) const override;
     virtual int columnCount(const QModelIndex &parent=QModelIndex()) const override;
     virtual QVariant data(const QModelIndex &index, int role=Qt::DisplayRole) const override;
+
+    virtual QVariant getId(const QModelIndex &index, int role=Qt::DisplayRole) const; //for getting an id inside delegate
+    virtual void resetData(const QList<AbstractTableModel *> &trackList_);
 };
 
 #endif // QTRACKTABLEMODEL_H

@@ -5,12 +5,12 @@ QTrackTableModel::QTrackTableModel()
 
 }
 
-QTrackTableModel::QTrackTableModel(const QList<Track> &trackList_): trackList(trackList_)
+QTrackTableModel::QTrackTableModel(const QList<AbstractTableModel *> &trackList_,
+                                   QList<QString> headerList_, int n_btn): trackList(trackList_),
+    headerList(headerList_), n_columns(headerList_.size()+n_btn)
 {
 
 }
-
-
 
 QVariant QTrackTableModel::headerData(int section, Qt::Orientation orientation, int role) const
 {
@@ -18,66 +18,62 @@ QVariant QTrackTableModel::headerData(int section, Qt::Orientation orientation, 
 
     if (orientation == Qt::Horizontal)
     {
-        switch (section)
-        {
-        case 0:
-            return QString("id");
-        case 1:
-            return QString("название");
-        case 2:
-            return QString("жанр");
-        case 3:
-            return QString("релиз");
-        case 4:
-            return QString("исполнитель");
-        default:
+        if (section >= headerList.size())
             return QVariant();
-        }
+        return headerList.at(section);
     }
     return QVariant();
 }
 
 int QTrackTableModel::rowCount(const QModelIndex &parent) const
 {
-    return 6;
-    //return trackList.size();
+    return trackList.size();
 }
 
 int QTrackTableModel::columnCount(const QModelIndex &parent) const
 {
-    return 7;
+    return n_columns;
 }
 
 QVariant QTrackTableModel::data(const QModelIndex &index, int role) const
 {
     if (!index.isValid()) return QVariant();
-   // if (index.row() >= trackList.size()) return QVariant();
+    if (index.row() >= trackList.size()) return QVariant();
 
     if (role == Qt::DisplayRole || role == Qt::EditRole)
     {
-       // Track tr = trackList.at(index.row());
-        switch (index.column())
-        {
-     //   case 0:
-       //     return tr.getId();
-      //  case 1:
-       //     return tr.getName();
-       // case 2:
-        //    return tr.getId_genre();
-       // case 3:
-        //    return tr.getRelease_date();
-       // case 4:
-         //   return tr.getId_artist();
-        default:
-            return QVariant("(?)");
-        }
+        QList<QVariant> varList = trackList.at(index.row())->getVarList();
+
+        if (index.column() >=  varList.size())
+            return QVariant();
+
+        return varList.at(index.column());
+
     }
-    else return QVariant();
+    return QVariant();
 }
 
-//QTableWidgetItem * QTableModel::item 	( 	const QModelIndex &  	index	) 	const
-//{
-//if (!isValid(index))
- //        return 0;
-  //   return tableItems.at(tableIndex(index.row(), index.column()));
-//}
+QVariant QTrackTableModel::getId(const QModelIndex &index, int role) const
+{
+    if (!index.isValid()) return QVariant();
+    if (index.row() >= trackList.size()) return QVariant();
+    if (role == Qt::DisplayRole || role == Qt::EditRole)
+    {
+        QVariant id = trackList.at(index.row())->getId();
+        return id;
+    }
+
+    return QVariant();
+}
+
+void QTrackTableModel::resetData(const QList<AbstractTableModel *> &trackList_)
+{
+    beginResetModel(); //beginResetModel и endResetModel() чтобы кол-во строк в таблице тоже поменялось. Методы QAbstractItemModel
+    trackList = trackList_;
+    endResetModel();
+
+    qDebug() << trackList.size();
+}
+
+
+

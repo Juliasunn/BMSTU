@@ -1,24 +1,21 @@
 #ifndef USER_H
 #define USER_H
-#include <QList>
-#include <QSqlRecord>
-#include <QVariant>
-#include <QDate>
-#include <QString>
-#include <QDebug>
+#include "abstracttablemodel.h"
 
-class User
+class User : public AbstractTableModel
 {
 private:
-    int id;
-    QString login;
-    QString password;// TODO: убрать
-    int id_subscr;
-    QDate subscr_end;
-    int minutes_listerned;
+    QVariant id;
+    QVariant login;
+    QVariant password;// TODO: убрать
+    QVariant subscr;
+    QVariant subscr_end;
+    QVariant minutes_listerned;
 public:
     User();
     User(QSqlRecord user_record);
+    virtual QList<QVariant> getVarList() const override;
+    virtual QVariant getId() const override;
 };
 
 #endif // USER_H

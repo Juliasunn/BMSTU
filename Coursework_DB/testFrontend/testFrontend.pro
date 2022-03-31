@@ -16,27 +16,34 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    DataStructures/abstracttablemodel.cpp \
     DataStructures/artist.cpp \
     DataStructures/playlist.cpp \
     DataStructures/subscribe.cpp \
     DataStructures/track.cpp \
     DataStructures/user.cpp \
+    artistview.cpp \
+    controller.cpp \
     main.cpp \
     mainwindow.cpp \
     qtracktablemodel.cpp \
-    trackdelegate.cpp
+    tablemodeldelegate.cpp
 
 HEADERS += \
+    DataStructures/abstracttablemodel.h \
     DataStructures/artist.h \
     DataStructures/playlist.h \
     DataStructures/subscribe.h \
     DataStructures/track.h \
     DataStructures/user.h \
+    artistview.h \
+    controller.h \
     mainwindow.h \
     qtracktablemodel.h \
-    trackdelegate.h
+    tablemodeldelegate.h
 
 FORMS += \
+    artistview.ui \
     mainwindow.ui
 
 # Default rules for deployment.

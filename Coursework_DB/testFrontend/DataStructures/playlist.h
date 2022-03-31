@@ -1,22 +1,23 @@
 #ifndef PLAYLIST_H
 #define PLAYLIST_H
-#include <QList>
-#include <QSqlRecord>
-#include <QVariant>
-#include <QDate>
-#include <QString>
-#include <QDebug>
+#include "abstracttablemodel.h"
 
-class Playlist
+class Playlist : public AbstractTableModel
 {
 private:
-    int id;
-    QString name;
-    int id_user;
+    QVariant id;
+    QVariant name;
+    QVariant num_track;
+    QVariant id_user;
 public:
     Playlist();
-    Playlist(const QSqlRecord &rec);
 
+    Playlist(QVariant name_, QVariant num_track_) : name(name_),
+        num_track(num_track_){};
+
+    Playlist(const QSqlRecord &rec);
+    virtual QList<QVariant> getVarList() const override;
+    virtual QVariant getId() const override;
 };
 
 #endif // PLAYLIST_H

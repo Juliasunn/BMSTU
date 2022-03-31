@@ -7,7 +7,9 @@
 #include <QStringListModel>
 #include <QApplication>
 #include <QMainWindow>
-#include "trackdelegate.h"
+#include "tablemodeldelegate.h"
+#include "DataStructures/artist.h"
+#include "DataStructures/playlist.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
