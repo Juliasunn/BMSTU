@@ -1,4 +1,4 @@
 #!/usr/bin/bash 
 echo "This script runs my programm with qtcreator process PID." 
-/usr/bin/qtcreator
-sudo ./app.exe $(pgrep qtcreator)
+#/usr/bin/qtcreator
+sudo ./app.exe $(pgrep Kursach_final)

@@ -37,7 +37,7 @@ int printer(const char *pathname, int depth, int file_type, FILE *out_file, cons
 	
 	if (file_type == LINK_T)
 	{
-		fprintf(out_file,  "%s/ is symbol link to file:", pathname);
+		fprintf(out_file,  "%s/ is symbol link to file ", pathname);
 		int bytes_read = readlink(pathname, buf, 100);
 		buf[bytes_read] = '\0';
 		fprintf(out_file, "%s\n", buf);
@@ -47,8 +47,10 @@ int printer(const char *pathname, int depth, int file_type, FILE *out_file, cons
 
 
 // Обход дерева каталогов
-int dopath(const char *filename, int depth, int print_fun(const char *, int, int, FILE *, const char *), const char *title, FILE *out_file)
+int dopath(const char *filename, int depth, int print_fun(const char *, int, int, FILE *, const char *), const char *title, FILE *out_file, int max_depth)
 {
+	if (depth > max_depth)
+		return 0;
 	struct stat statbuf;
 	struct dirent * dirp;
 	DIR *dp;
@@ -57,8 +59,6 @@ int dopath(const char *filename, int depth, int print_fun(const char *, int, int
 	if ((ret = lstat(filename, &statbuf)) != 0) // ошибка 																		
 		return ret; 
 
-	//for (int i = 0; i < depth; ++i)
-	//	printf("|\t");
 
 	if (S_ISDIR(statbuf.st_mode) == 0) // не каталог 
 	{
@@ -66,14 +66,11 @@ int dopath(const char *filename, int depth, int print_fun(const char *, int, int
 			return(print_fun(filename, depth, FILE_T, out_file, title)); 
 		return(print_fun(filename, depth, LINK_T, out_file, title));  
 	}
-	//	return(print_fun(filename, depth, LINK_T, out_file, title)); // отобразить в дереве 
 	print_fun(filename, depth, DIR_T, out_file, title);//каталог отобразить в дереве 
 
-	//if ((ret = func(filename, &statbuf, FTW_D)) != 0)
-	//	return(ret);
 
 	if ((dp = opendir(filename)) == NULL) // каталог недоступен
-	//	return(print_fun(filename, depth, DIR_T, out_file, title));
+
 		return 0;
     
 	chdir(filename); //меняет текущий рабочий каталог процесса. Без этого пришлось бы приписывать в цикле к dirp->d_name сзади filename ?? тк в dirp->d_name только имя файла без пути
@@ -82,7 +79,7 @@ int dopath(const char *filename, int depth, int print_fun(const char *, int, int
 		if (strcmp(dirp->d_name, ".") != 0 &&
 			strcmp(dirp->d_name, "..") != 0 ) // пропуск каталогов . и .. попали в текущую родительску директорию
 		{
-			ret = dopath(dirp->d_name, depth + 1, print_fun, title, out_file);
+			ret = dopath(dirp->d_name, depth + 1, print_fun, title, out_file, max_depth);
 		}
 	}
     
@@ -94,7 +91,7 @@ int dopath(const char *filename, int depth, int print_fun(const char *, int, int
 	return(ret);    
 }
 
-int read_directory(const char *dirname, FILE *out_file)
+int read_directory(const char *dirname, FILE *out_file, int max_depth)
 {
-	return dopath(dirname, 0, printer, dirname, out_file);
+	return dopath(dirname, 0, printer, dirname, out_file, max_depth);
 }

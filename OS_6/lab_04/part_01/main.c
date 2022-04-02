@@ -8,7 +8,7 @@
 #include <stdlib.h>
 #include <string.h>
 #define MAX_PATH_LENGTH 256
-#define BUF_SIZE 3000
+#define BUF_SIZE 10000
 
 int simple_print(const char *buf, FILE *out_file, const char *title)
 {
@@ -31,7 +31,7 @@ int read_symblink(const char *process_dir, const char *link_name, FILE *out_file
 }
 
 
-int read_dir(const char *process_dir, const char *dir_name, FILE *out_file)
+int read_dir(const char *process_dir, const char *dir_name, FILE *out_file, int max_depth)
 {
 	char path[MAX_PATH_LENGTH];
 	snprintf(path, MAX_PATH_LENGTH, "%s%s", process_dir, dir_name);
@@ -39,7 +39,7 @@ int read_dir(const char *process_dir, const char *dir_name, FILE *out_file)
 
 	printf("[DEBUG INFO: file name] %s\n", path);
 
-	read_directory(path, out_file);	  
+	read_directory(path, out_file, max_depth);	  
 }
 
 
@@ -80,14 +80,17 @@ int main(int argc, char *argv[])
         	strcat(process_dir, argv[1]); //иначе PID процесса передается как параметр 
         FILE *out_file = fopen("process_info.txt", "w"); //текстовый файл куда выводим информацию о процессе
         
-        read_proc_file(process_dir, "/cmdline", out_file, simple_print);
-        read_symblink(process_dir, "/cwd", out_file, simple_print);
-        read_symblink(process_dir, "/exe",  out_file, simple_print);      
-        read_symblink(process_dir, "/root", out_file, simple_print);
+        read_proc_file(process_dir, "/cmdline", out_file, simple_print); //файл, полная командная строка
         
-        read_dir(process_dir, "/fd", out_file);
-        read_proc_file(process_dir, "/stat",  out_file, stat_print);
-        read_proc_file(process_dir, "/environ", out_file, simple_print);
+        read_symblink(process_dir, "/cwd", out_file, simple_print); //  current working dirctory 
+        read_symblink(process_dir, "/exe",  out_file, simple_print); //симв. ссылка, путь к исп файлу процесса     
+        read_symblink(process_dir, "/root", out_file, simple_print); // симв. ссылка, корневой каталог ФС
+        
+        read_dir(process_dir, "/fd", out_file, 10); //директория, ссылки на файлы открытые процессом
+        read_dir(process_dir, "/task", out_file, 1); //директории потоков
+        read_proc_file(process_dir, "/stat",  out_file, stat_print); //файл с информацией о процессе
+        read_proc_file(process_dir, "/environ", out_file, simple_print); //файл, окружение процесса
+        read_proc_file(process_dir, "/maps", out_file, simple_print); //об адресном пространсе процесса
 
         
         fclose(out_file);
