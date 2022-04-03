@@ -33,3 +33,8 @@ void ArtistView::setDelegate(TableModelDelegate *artistDelegate)
 }
 
 
+
+void ArtistView::on_btnMenu_clicked()
+{
+    emit to_menu();
+}

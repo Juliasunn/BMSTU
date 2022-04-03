@@ -64,11 +64,26 @@ bool TableModelDelegate::editorEvent(QEvent *event, QAbstractItemModel *model,
                     case ARTIST_SIG:
                         emit show_artists_btn_pressed(id);
                         break;
-                    case TRACK_SIG:
+                    case ARTIST_TRACK_SIG:
+                        emit show_tracks_btn_pressed(id);
+                        break;
+                    case PLAYLIST_TRACK_SIG:
                         emit show_tracks_btn_pressed(id);
                         break;
                     case PLAYLIST_SIG:
                         emit show_playlists_btn_pressed(id);
+                        break;
+                    case CHOOSE_SUBSCR_SIG:
+                        emit change_subscr(id);
+                        break;
+                    case LISTERN_SIG:
+                        emit play_track(id);
+                        break;
+                    case ADD_TO_PLAYLIST_SIG:
+                        emit add_to_playlist(id);
+                        break;
+                    case DEL_FROM_PLAYLIST_SIG:
+                        emit del_from_playlist(id);
                         break;
                     }
 

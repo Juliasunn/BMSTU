@@ -18,8 +18,13 @@ public:
 
     void setData(QList <AbstractTableModel *> artistList);
     void setDelegate(TableModelDelegate *artistDelegate);
-private:    
-    QTrackTableModel *artistTable ;
+private slots:
+    void on_btnMenu_clicked();
+signals:
+    void to_menu();
+
+private:
+    QTrackTableModel *artistTable;
     Ui::ArtistView *ui;
 };
 

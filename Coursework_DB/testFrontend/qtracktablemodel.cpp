@@ -5,6 +5,7 @@ QTrackTableModel::QTrackTableModel()
 
 }
 
+
 QTrackTableModel::QTrackTableModel(const QList<AbstractTableModel *> &trackList_,
                                    QList<QString> headerList_, int n_btn): trackList(trackList_),
     headerList(headerList_), n_columns(headerList_.size()+n_btn)

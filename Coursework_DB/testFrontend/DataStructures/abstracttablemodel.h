@@ -10,7 +10,7 @@
 class AbstractTableModel
 {
 public:
-    AbstractTableModel();
+    AbstractTableModel()=default;
     virtual QVariant getId() const = 0;//for getting the id in the controller
     virtual QList<QVariant> getVarList() const = 0; //for showing data in delegate
 };

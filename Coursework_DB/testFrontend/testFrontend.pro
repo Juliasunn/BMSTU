@@ -16,18 +16,24 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    DataStructures/abstracttablemodel.cpp \
     DataStructures/artist.cpp \
     DataStructures/playlist.cpp \
     DataStructures/subscribe.cpp \
     DataStructures/track.cpp \
     DataStructures/user.cpp \
-    artistview.cpp \
+    Views/artistview.cpp \
+    Views/loginview.cpp \
+    Views/mainwindow.cpp \
+    Views/menuview.cpp \
+    Views/playlistview.cpp \
+    Views/regview.cpp \
+    Views/searchview.cpp \
+    Views/subscribeview.cpp \
+    Views/trackview.cpp \
     controller.cpp \
     main.cpp \
-    mainwindow.cpp \
     qtracktablemodel.cpp \
-    tablemodeldelegate.cpp
+    tablemodeldelegate.cpp \
 
 HEADERS += \
     DataStructures/abstracttablemodel.h \
@@ -36,15 +42,29 @@ HEADERS += \
     DataStructures/subscribe.h \
     DataStructures/track.h \
     DataStructures/user.h \
-    artistview.h \
+    Views/artistview.h \
+    Views/loginview.h \
+    Views/mainwindow.h \
+    Views/menuview.h \
+    Views/playlistview.h \
+    Views/regview.h \
+    Views/searchview.h \
+    Views/subscribeview.h \
+    Views/trackview.h \
     controller.h \
-    mainwindow.h \
     qtracktablemodel.h \
-    tablemodeldelegate.h
+    tablemodeldelegate.h \
 
 FORMS += \
-    artistview.ui \
-    mainwindow.ui
+    Views/artistview.ui \
+    Views/loginview.ui \
+    Views/mainwindow.ui \
+    Views/menuview.ui \
+    Views/playlistview.ui \
+    Views/regview.ui \
+    Views/searchview.ui \
+    Views/subscribeview.ui \
+    Views/trackview.ui \
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

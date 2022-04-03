@@ -13,7 +13,8 @@ private:
     int n_columns;
 public:
     QTrackTableModel();
-    //QTrackTableModel(const QList<Track> &trackList);
+    QTrackTableModel(QTrackTableModel &) = default;
+    QTrackTableModel(QTrackTableModel &&) = default;
     QTrackTableModel(const QList<AbstractTableModel *> &trackList_, QList<QString> headerList_, int n_btn);
 
     virtual QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const override;
