@@ -3,15 +3,21 @@
 #include <QString>
 
 LoginView::LoginView(QWidget *parent) :
-    QWidget(parent),
+    AbstractView(parent),
     ui(new Ui::LoginView)
 {
     ui->setupUi(this);
+    this->hide();
 }
 
 LoginView::~LoginView()
 {
     delete ui;
+}
+
+int LoginView::getType() const
+{
+    return type;
 }
 
 void LoginView::on_btnAutorize_clicked()

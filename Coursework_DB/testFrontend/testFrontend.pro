@@ -21,7 +21,7 @@ SOURCES += \
     DataStructures/subscribe.cpp \
     DataStructures/track.cpp \
     DataStructures/user.cpp \
-    Views/artistview.cpp \
+    Views/abstractview.cpp \
     Views/loginview.cpp \
     Views/mainwindow.cpp \
     Views/menuview.cpp \
@@ -31,18 +31,20 @@ SOURCES += \
     Views/subscribeview.cpp \
     Views/trackview.cpp \
     controller.cpp \
+    listmodel.cpp \
     main.cpp \
-    qtracktablemodel.cpp \
+    repository.cpp \
+    tablemodel.cpp \
     tablemodeldelegate.cpp \
 
 HEADERS += \
-    DataStructures/abstracttablemodel.h \
+    DataStructures/abstracttabledata.h \
     DataStructures/artist.h \
     DataStructures/playlist.h \
     DataStructures/subscribe.h \
     DataStructures/track.h \
     DataStructures/user.h \
-    Views/artistview.h \
+    Views/abstractview.h \
     Views/loginview.h \
     Views/mainwindow.h \
     Views/menuview.h \
@@ -52,11 +54,12 @@ HEADERS += \
     Views/subscribeview.h \
     Views/trackview.h \
     controller.h \
-    qtracktablemodel.h \
+    listmodel.h \
+    repository.h \
+    tablemodel.h \
     tablemodeldelegate.h \
 
 FORMS += \
-    Views/artistview.ui \
     Views/loginview.ui \
     Views/mainwindow.ui \
     Views/menuview.ui \

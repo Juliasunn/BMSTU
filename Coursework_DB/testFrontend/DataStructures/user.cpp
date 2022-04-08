@@ -24,5 +24,5 @@ User::User(QSqlRecord user_record)
 
 QList<QVariant> User::getVarList() const
 {
-    return QList<QVariant>({login, subscr, subscr_end, minutes_listerned});
+    return QList<QVariant>({id, login, subscr, subscr_end, minutes_listerned});
 }

@@ -2,21 +2,22 @@
 #define SUBSCRIBEVIEW_H
 #include "tablemodeldelegate.h"
 #include <QWidget>
-#include "qtracktablemodel.h"
-
+#include "tablemodel.h"
+#include "abstractview.h"
 namespace Ui {
 class SubscribeView;
 }
 
-class SubscribeView : public QWidget
+class SubscribeView : public AbstractView
 {
     Q_OBJECT
 
 public:
-    explicit SubscribeView(QWidget *parent, QTrackTableModel *tm, TableModelDelegate *td);
+    explicit SubscribeView(QWidget *parent, TableModelDelegate *td);
     ~SubscribeView();
-
-    void setData(QList <AbstractTableModel *> sList);
+    virtual int getType() const override;
+    void setCurData(AbstractTableData *curSubscr);
+    void setData(QList <AbstractTableData *> sList);
     void setDelegate(TableModelDelegate *sDelegate);
 private slots:
     void on_btnMenu_clicked();
@@ -25,7 +26,8 @@ signals:
 
 private:
     Ui::SubscribeView *ui;
-    QTrackTableModel *sTable;
+    TableModel *sTable, *sCur;
+    int type=SUBSCR_V;
 };
 
 #endif // SUBSCRIBEVIEW_H

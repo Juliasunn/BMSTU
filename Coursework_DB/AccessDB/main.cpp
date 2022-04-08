@@ -28,19 +28,13 @@ int main(int argc, char *argv[])
    // InsertInfo::insert_listerning(con, 2, 1);
    // InsertInfo::insert_listerning(con, 1, 2);
 
-   // GetInfo::get_tracks_by_artist(con, 1);
-   // GetInfo::get_artists_by_name(con, "Lil Peep");
+    //GetInfo::get_tracks_by_artist(con, 3);
+    GetInfo::get_artists_by_name(con, "The Neiborhood");
    // GetInfo::get_available_subscribes(con, 2);
     //GetInfo::get_playlists(con, 1);
-   // GetInfo::get_tracks_by_playlist(con, 3);
+    //GetInfo::get_tracks_by_playlist(con, 3);
 
-    QStringList numbers;
-    numbers << "One" << "Two" << "Three" << "Four" << "Five";
 
-    QAbstractItemModel *model = new QStringListModel(numbers);
-    QListView *view = new QListView;
-    view->setModel(model);
-    view->show();
 
     return a.exec();
 }

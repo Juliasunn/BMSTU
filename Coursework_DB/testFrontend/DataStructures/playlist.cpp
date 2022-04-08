@@ -10,6 +10,11 @@ Playlist::Playlist()
     
 }
 
+Playlist::~Playlist()
+{
+    qDebug() << "Playlist destructor";
+}
+
 Playlist::Playlist(const QSqlRecord &rec)
 {
     qDebug() << "Playlist called";

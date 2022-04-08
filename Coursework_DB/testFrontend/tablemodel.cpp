@@ -1,19 +1,33 @@
-#include "qtracktablemodel.h"
+#include "tablemodel.h"
 
-QTrackTableModel::QTrackTableModel()
+
+void TableModel::crearDataList()
 {
-
+    int i = 0;
+    qDebug() << "очистка списка"  << trackList.size();
+    while (!trackList.empty())
+    {
+        delete trackList.at(i);
+        trackList.removeAt(i);
+    }
+    qDebug() << "очистка списка завершена"  << trackList.size();
 }
 
+TableModel::~TableModel()
+{
+    qDebug() << "TableModel destructor";
+    this->crearDataList();
+}
 
-QTrackTableModel::QTrackTableModel(const QList<AbstractTableModel *> &trackList_,
-                                   QList<QString> headerList_, int n_btn): trackList(trackList_),
+TableModel::TableModel(/*const QList<AbstractTableData *> &trackList_,*/
+                                   QList<QString> headerList_, int n_btn):
+    trackList(QList<AbstractTableData *>()),
     headerList(headerList_), n_columns(headerList_.size()+n_btn)
 {
 
 }
 
-QVariant QTrackTableModel::headerData(int section, Qt::Orientation orientation, int role) const
+QVariant TableModel::headerData(int section, Qt::Orientation orientation, int role) const
 {
     if (role != Qt::DisplayRole) return QVariant();
 
@@ -26,17 +40,17 @@ QVariant QTrackTableModel::headerData(int section, Qt::Orientation orientation, 
     return QVariant();
 }
 
-int QTrackTableModel::rowCount(const QModelIndex &parent) const
+int TableModel::rowCount(const QModelIndex &parent) const
 {
     return trackList.size();
 }
 
-int QTrackTableModel::columnCount(const QModelIndex &parent) const
+int TableModel::columnCount(const QModelIndex &parent) const
 {
     return n_columns;
 }
 
-QVariant QTrackTableModel::data(const QModelIndex &index, int role) const
+QVariant TableModel::data(const QModelIndex &index, int role) const
 {
     if (!index.isValid()) return QVariant();
     if (index.row() >= trackList.size()) return QVariant();
@@ -54,7 +68,7 @@ QVariant QTrackTableModel::data(const QModelIndex &index, int role) const
     return QVariant();
 }
 
-QVariant QTrackTableModel::getId(const QModelIndex &index, int role) const
+QVariant TableModel::getId(const QModelIndex &index, int role) const
 {
     if (!index.isValid()) return QVariant();
     if (index.row() >= trackList.size()) return QVariant();
@@ -67,9 +81,11 @@ QVariant QTrackTableModel::getId(const QModelIndex &index, int role) const
     return QVariant();
 }
 
-void QTrackTableModel::resetData(const QList<AbstractTableModel *> &trackList_)
+void TableModel::resetData(const QList<AbstractTableData *> trackList_)
 {
     beginResetModel(); //beginResetModel и endResetModel() чтобы кол-во строк в таблице тоже поменялось. Методы QAbstractItemModel
+
+    this->crearDataList();
     trackList = trackList_;
     endResetModel();
 

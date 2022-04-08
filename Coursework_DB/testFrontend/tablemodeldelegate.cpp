@@ -19,7 +19,7 @@ TableModelDelegate::~TableModelDelegate()
 
 void TableModelDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
-    const QTrackTableModel *model = static_cast<const QTrackTableModel*>(index.model());
+    const TableModel *model = static_cast<const TableModel*>(index.model());
 
   //  qDebug() << model->data(index);
     painter->drawText(option.rect, model->data(index).toString());
@@ -41,7 +41,6 @@ void TableModelDelegate::paint(QPainter *painter, const QStyleOptionViewItem &op
 bool TableModelDelegate::editorEvent(QEvent *event, QAbstractItemModel *model,
                                      const QStyleOptionViewItem &option, const QModelIndex &index)
 {
-   // qDebug() << index.column();
     QMouseEvent * e = (QMouseEvent *)event;
              int clickY = e->y();
 
@@ -54,37 +53,46 @@ bool TableModelDelegate::editorEvent(QEvent *event, QAbstractItemModel *model,
             {
                 if (index.column() == btn_pos.at(i))
                 {
-                    qDebug() << "PRESSED";
-
-                    const QTrackTableModel *model = static_cast<const QTrackTableModel*>(index.model());
+                    const TableModel *model = static_cast<const TableModel*>(index.model());
                     QVariant id = model->getId(index);
-                    qDebug() << "id = " << id;
+                    qDebug() << "PRESSED id = " << id;
+
                     switch(btn_sig.at(i))
                     {
-                    case ARTIST_SIG:
-                        emit show_artists_btn_pressed(id);
-                        break;
                     case ARTIST_TRACK_SIG:
-                        emit show_tracks_btn_pressed(id);
+                        qDebug() << "Запрос на просмотр треков исполнителя" << id;
+                        emit show_tracks_btn_pressed(id);                       
                         break;
                     case PLAYLIST_TRACK_SIG:
+                        qDebug() << "Запрос на просмотр треков в плейлисте" << id;
                         emit show_tracks_btn_pressed(id);
                         break;
-                    case PLAYLIST_SIG:
-                        emit show_playlists_btn_pressed(id);
-                        break;
                     case CHOOSE_SUBSCR_SIG:
+                        qDebug() << "Запрос на выбор данной подписки" << id;
                         emit change_subscr(id);
                         break;
                     case LISTERN_SIG:
+                        qDebug() << "Запрос на прослушиване трека" << id;
                         emit play_track(id);
                         break;
                     case ADD_TO_PLAYLIST_SIG:
+                        qDebug() << "Запрос на добавление трека" << id;
                         emit add_to_playlist(id);
                         break;
                     case DEL_FROM_PLAYLIST_SIG:
+                        qDebug() << "Запрос на удаление трека из плейлиста"<< id;
                         emit del_from_playlist(id);
                         break;
+                    case DEL_PLAYLIST_SIG:
+                        qDebug() << "Запрос на удаление плейлиста"<< id;
+                        emit del_playlist(id);
+                        break;
+                    case CHOOSE_PLAYLIST_SIG:
+                        qDebug() << "Запрос на добавление трека в плейлист"<< id;
+                        emit choose_playlist(id);
+                        break;
+                    default:
+                        qDebug() << "Сигнал не найден" << btn_sig.at(i);
                     }
 
                 }

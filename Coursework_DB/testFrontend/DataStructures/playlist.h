@@ -1,8 +1,8 @@
 #ifndef PLAYLIST_H
 #define PLAYLIST_H
-#include "abstracttablemodel.h"
+#include "abstracttabledata.h"
 
-class Playlist : public AbstractTableModel
+class Playlist : public AbstractTableData
 {
 private:
     QVariant id;
@@ -11,6 +11,7 @@ private:
     QVariant id_user;
 public:
     Playlist();
+    ~Playlist();
 
     Playlist(QVariant name_, QVariant num_track_) : name(name_),
         num_track(num_track_){};

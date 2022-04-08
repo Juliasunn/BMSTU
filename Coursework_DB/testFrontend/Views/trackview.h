@@ -2,29 +2,38 @@
 #define TRACKVIEW_H
 #include "tablemodeldelegate.h"
 #include <QWidget>
-#include "qtracktablemodel.h"
-
+#include "tablemodel.h"
+#include "abstractview.h"
 namespace Ui {
 class TrackView;
 }
 
-class TrackView : public QWidget
+class TrackView : public AbstractView
 {
     Q_OBJECT
 
 public:
-    explicit TrackView(QWidget *parent, QTrackTableModel *artistTable_, TableModelDelegate *artistDelegate_);
+    explicit TrackView(QWidget *parent, TableModelDelegate *artistDelegate_);
     ~TrackView();
-    void setData(QList <AbstractTableModel *> trackList);
+    void setData(QList <AbstractTableData *> trackList);
     void setDelegate(TableModelDelegate *trackDelegate);
+    virtual int getType() const override;
+    AbstractView *getPrevView() const;
+    void setPrevView(AbstractView *value);
+
 private slots:
     void on_btnMenu_clicked();
+    void on_btnMenu_2_clicked();
+
 signals:
     void to_menu();
+    void to_previous(AbstractView *prev);
 
 private:
     Ui::TrackView *ui;
-    QTrackTableModel *trackTable;
+    TableModel *trackTable;
+    int type=TRACK_V;
+    AbstractView *prevView;
 };
 
 #endif // TRACKVIEW_H

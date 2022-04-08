@@ -1,3 +1,7 @@
+https://metanit.com/sql/postgresql/6.3.php
+тут полезно про join
+count(distinct(id_Track)) - чтобы считать только различные id_Track полезно если в выборке несколько count
+
 CREATE TABLE IF NOT EXISTS Subscribe
 (
 	id INT NOT NULL PRIMARY KEY,
@@ -74,7 +78,25 @@ CREATE TABLE IF NOT EXISTS Listening
 --select * from Subscribe where id != (select id_subscr from MUser where id = '2');
 --select * from Track left inner join PT on Track.id=PT.id_track where id_playlist = 3;
 
-copy Genre from '/home/julia/AccessDB/tables_csv/genre.csv' delimiter ',';
+--select Playlist.id, name, count(*) as num_track
+--from Playlist join PT on
+--Playlist.id=PT.id_playlist 
+--where Playlist.id_user = 1 group by Playlist.id;
+
+--select Track.id, Track.name, Genre.name, Track.release_date,
+--Artist.name, count(*) as n_listerned
+--from Track join Genre on Track.id_genre=Genre.id
+--join Artist on Track.id_artist=Artist.id
+--join Listening on Track.id=Listening.id_track
+--where id_artist = 3
+--group by Track.id, Genre.name, Track.release_date, Artist.name;
+
+--select Track.id, Track.name, Genre.name, Track.release_date, Artist.name, count(*) as n_listerned from Track left join Genre on Track.id_genre=Genre.id left join Artist on---Track.id_artist=Artist.id left join Listening on Track.id=Listening.id_track join PT on PT.id_track=Track.id where id_playlist = 3 group by Track.id, Genre.name, Track.release_date, Artist.name;
+
+select Artist.id, Artist.name, count(distinct(Track.id)), count(distinct(Listening.id)) as n_track from Artist left join Track on Track.id_artist=Artist.id left join Listening on Track.id=Listening.id_track
+where Artist.id = 3 group by Artist.id, Artist.name;
+
+copy Genre from '/home/julia/AccessDB/tables_csv/genre.csv' delimiter ','; 
 copy Artist from '/home/julia/AccessDB/tables_csv/artist.csv' delimiter ',';
 copy Track from '/home/julia/AccessDB/tables_csv/track.csv' delimiter ',';
 copy Subscribe from '/home/julia/AccessDB/tables_csv/subscribe.csv' delimiter ',';

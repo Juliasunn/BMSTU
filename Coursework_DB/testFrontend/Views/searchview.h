@@ -1,10 +1,10 @@
 #ifndef SEARCHVIEW_H
 #define SEARCHVIEW_H
 #include "tablemodeldelegate.h"
-#include "qtracktablemodel.h"
+#include "tablemodel.h"
 #include <QWidget>
 #include <QString>
-
+#include "abstractview.h"
 class GenreFlags
 {
     bool pop_fl;
@@ -31,17 +31,19 @@ namespace Ui {
 class SearchView;
 }
 
-class SearchView : public QWidget
+class SearchView : public AbstractView
 {
     Q_OBJECT
 
 public:
-    explicit SearchView(QWidget *parent, QTrackTableModel *atm, QTrackTableModel *ttm/*TableModelDelegate *md*/);
+    explicit SearchView(QWidget *parent);
     ~SearchView();
-    void setData(QList <AbstractTableModel *> dataList);
+
+    void setData(QList <AbstractTableData *> dataList);
     void setDelegate(TableModelDelegate *dataDelegate);
     void setArtistModel();
     void setTrackModel();
+    virtual int getType() const override;
 
 private slots:
     void on_btnArtist_clicked();
@@ -55,7 +57,8 @@ signals:
 
 private:
     Ui::SearchView *ui;
-    QTrackTableModel *artistTM, *trackTM, *curTM=NULL;
+    TableModel *artistTM, *trackTM, *curTM=NULL;
+    int type=SEARCH_V;
 };
 
 #endif // SEARCHVIEW_H

@@ -1,8 +1,8 @@
 #ifndef TRACK_H
 #define TRACK_H
-#include "abstracttablemodel.h"
+#include "abstracttabledata.h"
 
-class Track : public AbstractTableModel
+class Track : public AbstractTableData
 {
 private:
     QVariant id;
@@ -13,6 +13,7 @@ private:
     QVariant listenings;
 public:
     Track();
+    ~Track();
 
     Track(QVariant name_, QVariant id_genre_, QVariant release_date_,
           QVariant id_artist_, QVariant listenings_, QVariant id_ = 0) : name(name_), id_genre(id_genre_),

@@ -10,6 +10,11 @@ Subscribe::Subscribe()
     
 }
 
+Subscribe::~Subscribe()
+{
+    qDebug() << "Subscribe destructor";
+}
+
 Subscribe::Subscribe(const QSqlRecord &rec)
 {
     qDebug() << "Subscribe called";

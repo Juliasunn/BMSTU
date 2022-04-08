@@ -37,6 +37,11 @@ Track::Track()
 
 }
 
+Track::~Track()
+{
+    qDebug() << "Track destructor";
+}
+
 Track::Track(QSqlRecord &track_rec)
 {
     qDebug() << "Track called";

@@ -1,8 +1,8 @@
 #ifndef ARTIST_H
 #define ARTIST_H
-#include "abstracttablemodel.h"
+#include "abstracttabledata.h"
 
-class Artist : public AbstractTableModel
+class Artist : public AbstractTableData
 {
 private:
     QVariant id;
@@ -11,6 +11,7 @@ private:
     QVariant listenings;
 public:
     Artist();
+    ~Artist();
 
     Artist(QVariant name_, QVariant num_track_, QVariant listenings_, QVariant id_ = 0) : name(name_),
         num_track(num_track_), listenings(listenings_), id(id_){};

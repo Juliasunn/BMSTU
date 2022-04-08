@@ -2,15 +2,21 @@
 #include "ui_regview.h"
 
 RegView::RegView(QWidget *parent) :
-    QWidget(parent),
+    AbstractView(parent),
     ui(new Ui::RegView)
 {
     ui->setupUi(this);
+    this->hide();
 }
 
 RegView::~RegView()
 {
     delete ui;
+}
+
+int RegView::getType() const
+{
+    return type;
 }
 
 void RegView::on_btnReg_clicked()

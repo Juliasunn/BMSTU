@@ -1,21 +1,33 @@
 #include "searchview.h"
 #include "ui_searchview.h"
 
-SearchView::SearchView(QWidget *parent, QTrackTableModel *atm, QTrackTableModel *ttm/*TableModelDelegate *md*/) :
-    QWidget(parent),
-    ui(new Ui::SearchView),
-    artistTM(atm),
-    trackTM(ttm)
+SearchView::SearchView(QWidget *parent/*, TableModel *atm, TableModel *ttmTableModelDelegate *md*/) :
+    AbstractView(parent),
+    ui(new Ui::SearchView)
 {
+    artistTM = new TableModel(QList<QString>({" имя ", " всего треков ", " прослушиваний "}), 1);
+    trackTM = new TableModel(QList<QString>({" название ", " жанр ", " релиз ", " исполнитель ", " прослушиваний "}), 2);
     ui->setupUi(this);
-   // ui->tableView->setModel(dataTable);
-    //ui->tableView->setItemDelegate(td);
+    this->hide();
 }
 
 SearchView::~SearchView()
 {
+    qDebug() << "SearchView destructor";
     delete ui;
+    if (artistTM)
+    {
+        delete artistTM;
+        artistTM = NULL;
+    }
+    if (trackTM)
+    {
+        delete trackTM;
+        trackTM=NULL;
+    }
 }
+
+
 
 void SearchView::on_btnArtist_clicked()
 {
@@ -41,7 +53,7 @@ void SearchView::on_btnMenu_clicked()
     emit to_menu();
 }
 
-void SearchView::setData(QList<AbstractTableModel *> dataList)
+void SearchView::setData(QList<AbstractTableData *> dataList)
 {
     curTM->resetData(dataList);
 
@@ -64,6 +76,11 @@ void SearchView::setTrackModel()
 {
     ui->tableView->setModel(trackTM);
     curTM=trackTM;
+}
+
+int SearchView::getType() const
+{
+    return type;
 }
 
 

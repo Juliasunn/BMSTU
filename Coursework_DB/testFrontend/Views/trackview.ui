@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>772</width>
+    <width>976</width>
     <height>416</height>
    </rect>
   </property>
@@ -31,10 +31,13 @@
     <rect>
      <x>20</x>
      <y>180</y>
-     <width>731</width>
+     <width>931</width>
      <height>111</height>
     </rect>
    </property>
+   <attribute name="horizontalHeaderDefaultSectionSize">
+    <number>130</number>
+   </attribute>
   </widget>
   <widget class="QPushButton" name="btnMenu">
    <property name="geometry">
@@ -47,6 +50,19 @@
    </property>
    <property name="text">
     <string>&lt;&lt;В МЕНЮ</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="btnMenu_2">
+   <property name="geometry">
+    <rect>
+     <x>180</x>
+     <y>340</y>
+     <width>89</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>&lt;НАЗАД</string>
    </property>
   </widget>
  </widget>

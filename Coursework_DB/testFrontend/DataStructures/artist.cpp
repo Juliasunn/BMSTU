@@ -10,6 +10,11 @@ Artist::Artist()
     
 }
 
+Artist::~Artist()
+{
+    qDebug() << "Artist destructor";
+}
+
 Artist::Artist(QSqlRecord &artist_rec)
 {
     qDebug() << "Artist called";
