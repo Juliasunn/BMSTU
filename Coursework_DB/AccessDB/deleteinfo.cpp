@@ -3,19 +3,22 @@
 
 bool DeleteInfo::delete_track(Connector &conn, int id_playlist, int id_track)
 {
-    QString query_text = QString("delete * from PT"
-                         "where id_playlist = '").append(to_string(id_playlist)).append("' and"
-                         "id_track = '").append(to_string(id_track)).append("';");
+    //checked
+    QString query_text = QString(QStringLiteral("delete from PT"
+                         " where id_playlist = %1 and id_track = %2").arg(id_playlist).arg(id_track));
     qDebug() << query_text;
     return (conn.exec_non_query(query_text));
 }
 
 bool DeleteInfo::delete_playlist(Connector &conn, int id_playlist)
 {
-    QString query_text = QString("delete * from PT"
-                         "where id_playlist = '").append(to_string(id_playlist)).append("';");
+    //checked
+    QString query_text = QString(QStringLiteral("delete from PT"
+                         " where id_playlist = %1").arg(id_playlist));
     qDebug() << query_text;
-    query_text = QString("delete * from Playlist"
-                             "where id = '").append(to_string(id_playlist)).append("';");
+    conn.exec_non_query(query_text);
+    query_text = QString(QStringLiteral("delete from Playlist"
+                             " where id = %1").arg(id_playlist));
+    qDebug() << query_text;
     return (conn.exec_non_query(query_text));
 }

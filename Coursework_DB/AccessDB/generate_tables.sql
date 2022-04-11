@@ -7,7 +7,7 @@ CREATE TABLE IF NOT EXISTS Subscribe
 	id INT NOT NULL PRIMARY KEY,
 	name VARCHAR(20),
 	price INT,
-	max_time INT
+	max_time interval
 );
 
 
@@ -19,7 +19,7 @@ CREATE TABLE IF NOT EXISTS MUser
 	id_subscr INT,
 	FOREIGN KEY (id_subscr) REFERENCES Subscribe(id),
 	subscr_end DATE,
-	minutes_listerned INT DEFAULT 0
+	time_listerned interval DEFAULT '00:00:00'
 );
 
 CREATE TABLE IF NOT EXISTS Artist 
@@ -51,8 +51,9 @@ CREATE TABLE IF NOT EXISTS Track
 	FOREIGN KEY (id_genre) REFERENCES Genre(id),
 	release_date DATE,
 	id_artist INT,
-	FOREIGN KEY (id_artist) REFERENCES Artist(id)
-	--TODO: soundfile (?)
+	FOREIGN KEY (id_artist) REFERENCES Artist(id),
+	duration INTERVAL,
+	file_name VARCHAR(30)
 );
 
 CREATE TABLE IF NOT EXISTS PT
@@ -93,8 +94,20 @@ CREATE TABLE IF NOT EXISTS Listening
 
 --select Track.id, Track.name, Genre.name, Track.release_date, Artist.name, count(*) as n_listerned from Track left join Genre on Track.id_genre=Genre.id left join Artist on---Track.id_artist=Artist.id left join Listening on Track.id=Listening.id_track join PT on PT.id_track=Track.id where id_playlist = 3 group by Track.id, Genre.name, Track.release_date, Artist.name;
 
-select Artist.id, Artist.name, count(distinct(Track.id)), count(distinct(Listening.id)) as n_track from Artist left join Track on Track.id_artist=Artist.id left join Listening on Track.id=Listening.id_track
-where Artist.id = 3 group by Artist.id, Artist.name;
+--select Artist.id, Artist.name, count(distinct(Track.id)), count(distinct(Listening.id)) as n_track from Artist left join Track on Track.id_artist=Artist.id left join Listening on ------Track.id=Listening.id_track
+--where Artist.id = 3 group by Artist.id, Artist.name;
+
+С ДАТАМИ
+select CURRENT_DATE+interval '1 month';
+
+select Track.id, Track.name, Genre.name, Track.release_date, Artist.name,  count(distinct(Listening.id)) as n_listerned from Track join Genre on Track.id_genre=Genre.id join Artist on Track.id_artist=Artist.id left join Listening on Track.id=Listening.id_trackgroup by Track.id, Genre.name, Track.release_date, Artist.name
+
+delete from Playlist where id = 6 cascade;
+
+insert into PT (id, id_playlist, id_track) VALUES ((select count(*)+1 from PT), 6, 3);
+
+select * from MUser where (select max_time from Subscribe join MUser on MUser.id_subscr=Subscribe.id where MUser.id=1)-time_listerned <(select duration from Track where Track.id=3);
+
 
 copy Genre from '/home/julia/AccessDB/tables_csv/genre.csv' delimiter ','; 
 copy Artist from '/home/julia/AccessDB/tables_csv/artist.csv' delimiter ',';

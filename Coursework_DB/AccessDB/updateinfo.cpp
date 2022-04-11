@@ -1,33 +1,24 @@
 #include "updateinfo.h"
 
-bool UpdateInfo::update_listern_time(Connector &conn, int id_user, int new_listern_time)
+bool UpdateInfo::update_listern_time(Connector &conn, int user_id, int track_id)
 {
-    QString query_text = QString(" update MUser"
-                                 " set minutes\_listerned = ").append(to_arg(new_listern_time)). \
-                                 append(" where id = ").append(to_arg(id_user)).append(";");
+    //checked
+    QString query_text = QString(QStringLiteral(" update MUser"
+                                 " set time_listerned = (select time_listerned from MUser where MUser.id=%1)"
+                                 " +(select duration from Track where id=%2) where MUser.id=%1").arg(user_id).arg(track_id));
 
     qDebug() << query_text;
     return (conn.exec_non_query(query_text));
 }
 
-bool UpdateInfo::update_listern_time(Connector &conn, int id_user)
+
+bool UpdateInfo::update_subscribe(Connector &conn, int id_user, int subscr_id, int num_month)
 {
-    QString query_text = QString(" update MUser"
-                                 " set minutes\_listerned = '0' where id = "). \
-                                 append(to_arg(id_user)).append(";");
-
-    qDebug() << query_text;
-    return (conn.exec_non_query(query_text));
-}
-
-bool UpdateInfo::update_subscribe(Connector &conn, int id_user, int new_subscr_id, int num_month)
-{
-
-    QString query_text = QString(" update MUser"
-                                 " set minutes\_listerned = '0'"
-                                 ", id_subscribe = ").append(to_arg(new_subscr_id)). \
-                                 append(", subscr_end = CURRENT_DATE + interval(").append(to_string(num_month)). \
-                                 append(" month)  where id = ").append(to_arg(id_user)).append(";");
+    //checked
+    QString query_text = QString(QStringLiteral(" update MUser"
+                                 " set time_listerned = '00:00:00'"
+                                 ", id_subscr = %1 , subscr_end = CURRENT_DATE + interval '%2 month'"
+                                 " where MUser.id = %3").arg(subscr_id).arg(num_month).arg(id_user));
 
 
 
