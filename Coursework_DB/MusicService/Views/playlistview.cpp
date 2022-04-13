@@ -59,3 +59,14 @@ void PlaylistView::setPrevView(AbstractView *value)
 {
     prevView = value;
 }
+
+void PlaylistView::on_btnMenu_3_clicked()
+{
+    QString name = ui->lineEdit->text();
+
+    if (name.length()>3)
+        emit addAlbum(name);
+    else
+       QMessageBox::warning(this, "Ошибка", "Название должно содержать минимум 4 символа");
+
+}

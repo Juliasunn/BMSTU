@@ -61,10 +61,22 @@ bool CheckInfo::check_time_limit(Connector &conn, int user_id, int track_id)
 
 bool CheckInfo::check_album_limit(Connector &conn, int user_id)
 {
-    QString query_text = QString("select count(*) from Album where id_user = '").append(to_string(user_id)).append("';");
+    QString query_text = QString("select * from Playlist where id_user = ").append(to_string(user_id));
 
     qDebug() << query_text;
     if ((conn.exec_select(query_text).size()) < 5)
+        return true;
+    return false;
+
+}
+
+bool CheckInfo::check_album_exists(Connector &conn, int user_id, QString album_name)
+{
+    QString query_text = QString(QStringLiteral("select * from Playlist where id_user = %1 and name='%2'"). \
+                                 arg(user_id).arg(album_name));
+
+    qDebug() << query_text;
+    if ((conn.exec_select(query_text).size()) > 0)
         return true;
     return false;
 

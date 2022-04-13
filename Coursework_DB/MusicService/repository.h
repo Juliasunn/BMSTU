@@ -44,6 +44,8 @@ public:
 
     bool addListening(int id_user, int id_track);
     bool changeSubscribe(int id_user, int id_subscribe);
+    bool addAlbum(int id_user, QString name);
+    bool deletePlaylist(int id_album);
 
 };
 

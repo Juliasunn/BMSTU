@@ -12,6 +12,7 @@ public:
     static bool check_time_limit(Connector &conn, int user_id, int track_id);
 
     static bool check_album_limit(Connector &conn, int user_id);
+    static bool check_album_exists(Connector &conn, int user_id, QString album_name);
 };
 
 #endif // CHECKINFO_H

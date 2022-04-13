@@ -50,6 +50,7 @@ void Controller::setupConnections()
 
     QObject::connect(artistDelegate, SIGNAL(show_tracks_btn_pressed(QVariant)), this, SLOT(showArtistTr(QVariant)));
     QObject::connect(playlistDelegate, SIGNAL(show_tracks_btn_pressed(QVariant)), this, SLOT(showPlaylistTr(QVariant)));
+    QObject::connect(playlistDelegate, SIGNAL(del_playlist(QVariant)), this, SLOT(deletePlaylist(QVariant)));
 
     QObject::connect(lv, SIGNAL(try_login(QString, QString)), this, SLOT(autorize(QString, QString)));
     QObject::connect(lv, SIGNAL(btn_register_clicked()), this, SLOT(showRegView()));
@@ -65,6 +66,7 @@ void Controller::setupConnections()
     QObject::connect(pv, SIGNAL(to_menu()), this, SLOT(showMenu()));
     QObject::connect(tv, SIGNAL(to_previous(AbstractView *)), this, SLOT(showPreviousView(AbstractView *)));
     QObject::connect(pv, SIGNAL(to_previous(AbstractView *)), this, SLOT(showPreviousView(AbstractView *)));
+    QObject::connect(pv, SIGNAL(addAlbum(QString)), this, SLOT(addAlbum(QString)));
 
     QObject::connect(sv, SIGNAL(to_menu()), this, SLOT(showMenu()));
 
@@ -84,6 +86,9 @@ Controller::Controller(QWidget *baseWidget_, const Repository &repo_) : baseWidg
 
     curWidget = lv;
     curWidget->show();
+
+    m_player = new QMediaPlayer(this);
+    m_player->setVolume(70);
     this->setupConnections();
 }
 
@@ -189,6 +194,9 @@ void Controller::autorize(QString login, QString password)
         id_user = user->getId().toInt();
         showMenu();
     }
+    else
+        QMessageBox::warning(lv, "Ошибка", "Неверный логин или пароль");
+
 }
 
 void Controller::registrate(QString login, QString password)
@@ -199,6 +207,8 @@ void Controller::registrate(QString login, QString password)
             id_user = user->getId().toInt();
             showMenu();
     }
+    else
+        QMessageBox::warning(lv, "Ошибка", QStringLiteral("Пользователь с логином %1 уже существует").arg(login));
 }
 
 void Controller::showRegView()
@@ -254,7 +264,21 @@ void Controller::addToPlaylist(QVariant track_id)
 void Controller::listenTrack(QVariant track_id)
 {
     qDebug() << "listenTrack called";
-    repo.addListening(id_user, track_id.toInt()); //adds listening and adds time listened of this user
+    if (repo.addListening(id_user, track_id.toInt()) == false) //adds listening and adds time listened of this user
+            QMessageBox::warning(lv, "Ошибка", "Недостаточный баланс врмемени для прослушивания этого трека");
+    else
+    {
+        m_player->setMedia(QUrl::fromLocalFile("/home/julia/MS_files/Beautiful.mp3"));
+        ListenDialog *ld = new ListenDialog(m_player, baseWidget);
+       // QMediaPlayer player(thi);
+        //player.setVolume(70);
+       // player.setMedia(QUrl::fromLocalFile("/home/julia/MS_files/Beautiful.mp3"));
+       // player.play();
+        ld->show();
+
+       // m_player->play();
+    }
+
 
 }
 
@@ -262,16 +286,44 @@ void Controller::endAddToPlaylist(QVariant pl_id, QVariant track_id)
 {
     qDebug() << "endAddToPlaylist called" << pl_id << track_id;
     repo.addTrackToPlaylist(pl_id.toInt(), track_id.toInt());
+
+    pv->setData(repo.getPlaylists(id_user));
+    pv->show();
+
 }
 
 void Controller::deleteFromPlaylist(QVariant pl_id, QVariant track_id)
 {
     qDebug() << "deleteFromPlaylist called" << pl_id << track_id;
     repo.deleteFromPlaylist(pl_id.toInt(), track_id.toInt());
+
+    tv->setData(repo.getTracksByPlaylist(pl_id.toInt()));
+    tv->show();
 }
 
 void Controller::changeSubscribe(QVariant id)
 {
     qDebug() << "changeSubscribe called" << id;
     repo.changeSubscribe(id_user, id.toInt());
+    sv->setCurData(repo.get_curSubscr(id_user));
+    sv->show();
+}
+
+void Controller::addAlbum(QString name)
+{
+    qDebug() << "addAlbum called" << name;
+    if (repo.addAlbum(id_user, name)==false)
+        QMessageBox::warning(pv, "Ошибка", "Имя плейлиста повторяется или превышен лимит в 6 плейлистов.");
+
+    pv->setData(repo.getPlaylists(id_user));
+    pv->show();
+}
+
+void Controller::deletePlaylist(QVariant id)
+{
+    qDebug() << "deletePlaylist called" << id;
+    repo.deletePlaylist(id.toInt());
+
+    pv->setData(repo.getPlaylists(id_user));
+    pv->show();
 }

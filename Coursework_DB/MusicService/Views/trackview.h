@@ -4,6 +4,8 @@
 #include <QWidget>
 #include "tablemodel.h"
 #include "abstractview.h"
+#include <QMediaPlayer>
+#include <QMediaPlaylist>
 namespace Ui {
 class TrackView;
 }
@@ -34,6 +36,9 @@ private:
     TableModel *trackTable;
     int type=TRACK_V;
     AbstractView *prevView;
+
+ //   QMediaPlayer        *m_player;          // Проигрыватель треков
+  //  QMediaPlaylist      *m_playlist;
 };
 
 #endif // TRACKVIEW_H

@@ -48,4 +48,12 @@ julia=# \c music
 You are now connected to database "music" as user "julia".
 
 // Running sql scripts here //
+---------
+Воспроизведение музыки
+sudo apt-get install qtmultimedia5-dev libqt5multimediawidgets5 libqt5multimedia5-plugins libqt5multimedia5
+
+QT       += core gui multimedia
+сайт для скачивания треков   https://mp3bob.ru/news/45238-luis-fonsi-feat-daddy-yankee-despacito
+
+сайт с примерами плеера https://evileg.com/ru/post/155/
 

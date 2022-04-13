@@ -25,9 +25,12 @@ private slots:
     void on_btnMenu_clicked();
     void on_btnMenu_2_clicked();
 
+    void on_btnMenu_3_clicked();
+
 signals:
     void to_menu();
     void to_previous(AbstractView *prev);
+    void addAlbum(QString name);
 
 private:
     Ui::PlaylistView *ui;

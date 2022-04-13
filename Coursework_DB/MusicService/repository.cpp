@@ -161,3 +161,28 @@ bool Repository::changeSubscribe(int id_user, int id_subscribe)
     UpdateInfo::update_subscribe(con, id_user, id_subscribe, 1);
     return true;
 }
+
+bool Repository::addAlbum(int id_user, QString name)
+{
+    if (CheckInfo::check_album_limit(con, id_user) == false)
+    {
+        qDebug() << "[Repository] user have 5 albums";
+        return false;
+    }
+    if (CheckInfo::check_album_exists(con, id_user, name) == true)
+    {
+        qDebug() << "[Repository] album with this name ALREADY exists";
+        return false;
+    }
+    InsertInfo::insert_playlist(con, name, id_user);
+    qDebug()<< "[Repository] added album";
+    return true;
+
+}
+
+bool Repository::deletePlaylist(int id_album)
+{
+    qDebug()<< "[Repository] deleted album";
+    return DeleteInfo::delete_playlist(con, id_album);
+
+}

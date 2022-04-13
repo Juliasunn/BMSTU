@@ -12,7 +12,7 @@
 #include "Views/trackview.h"
 #include "Views/playlistview.h"
 #include "Views/subscribeview.h"
-
+#include "Views/listendialog.h"
 
 #include <QObject>
 
@@ -39,6 +39,10 @@ private:
     TableModelDelegate *artistDelegate;
     TableModelDelegate *subscrDelegate;
     TableModelDelegate *addTrackDelegate;
+
+
+    QMediaPlayer        *m_player;          // Проигрыватель треков
+    QMediaPlaylist      *m_playlist;
 
     void createDelegates();
     void createViews();
@@ -69,6 +73,8 @@ public slots:
     void deleteFromPlaylist(QVariant pl_id, QVariant track_id);
 
     void changeSubscribe(QVariant id);
+    void addAlbum(QString name);
+    void deletePlaylist(QVariant id);
 };
 
 #endif // CONTROLLER_H

@@ -1,5 +1,4 @@
-QT       += core gui sql
-
+QT       += core gui sql multimedia
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 CONFIG += c++11
@@ -29,6 +28,7 @@ SOURCES += \
     DataStructures/track.cpp \
     DataStructures/user.cpp \
     Views/abstractview.cpp \
+    Views/listendialog.cpp \
     Views/loginview.cpp \
     Views/mainwindow.cpp \
     Views/menuview.cpp \
@@ -59,6 +59,7 @@ HEADERS += \
     DataStructures/track.h \
     DataStructures/user.h \
     Views/abstractview.h \
+    Views/listendialog.h \
     Views/loginview.h \
     Views/mainwindow.h \
     Views/menuview.h \
@@ -74,6 +75,7 @@ HEADERS += \
     tablemodeldelegate.h \
 
 FORMS += \
+    Views/listendialog.ui \
     Views/loginview.ui \
     Views/mainwindow.ui \
     Views/menuview.ui \

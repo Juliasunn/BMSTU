@@ -24,9 +24,16 @@ void RegView::on_btnReg_clicked()
     QString login = ui->loginEntry->text();
     QString password = ui->passwordEntry->text();
     QString repPassword = ui->repPasswordEntry->text();
+    if (login.length()<3)
+        QMessageBox::warning(this, "Ошибка", "Логин должен содержать минимум 3 символа");
+    else if (password.length()<4)
+        QMessageBox::warning(this, "Ошибка", "Пароль должен содержать минимум 3 символа");
 
-    if (password == repPassword)
+    else if (password == repPassword)
         emit try_register(login, password);
+    else
+        QMessageBox::warning(this, "Ошибка", "Пароли не совпадают");
+
 
 }
 

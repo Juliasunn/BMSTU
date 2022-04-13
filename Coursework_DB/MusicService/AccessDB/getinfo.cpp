@@ -62,7 +62,7 @@ Subscribe * GetInfo::get_cur_subscribe(const Connector &conn, const int id_user)
 QList<AbstractTableData *> GetInfo::get_playlists(const Connector &conn, const int id_user)
 {
     //checked
-    QString query_text = QString("select Playlist.id, name, count(*) as num_track"
+    QString query_text = QString("select Playlist.id, name, count(PT.id_track) as num_track"
                                  " from Playlist left join PT on"
                                  " Playlist.id=PT.id_playlist"
                          " where Playlist.id_user = ").append(to_string(id_user)).append(" group by Playlist.id");

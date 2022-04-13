@@ -10,6 +10,7 @@
 #define PLAYLIST_V 5
 #define SEARCH_V 6
 #define TRACK_V 7
+#include <QMessageBox>
 class AbstractView : public QWidget
 {
     Q_OBJECT

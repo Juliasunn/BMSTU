@@ -10,6 +10,10 @@ TrackView::TrackView(QWidget *parent, TableModelDelegate *trackDelegate_) :
     ui->setupUi(this);
     ui->tableView->setModel(trackTable);
     ui->tableView->setItemDelegate(trackDelegate_);
+
+   // m_player = new QMediaPlayer(this);
+   // m_player->setVolume(70);
+   // connect(trackDelegate_, &TableModelDelegate::play_track, m_player, &QMediaPlayer::play);
     this->hide();
 }
 
@@ -36,6 +40,9 @@ void TrackView::setData(QList<AbstractTableData *> trackList)
 void TrackView::setDelegate(TableModelDelegate *trackDelegate)
 {
     ui->tableView->setItemDelegate(trackDelegate);
+   // player->setMedia(QUrl::fromLocalFile("/Users/me/Music/coolsong.mp3"));
+    //m_player->setMedia(QUrl::fromLocalFile("/home/julia/MS_files/Beautiful.mp3"));
+    //connect(trackDelegate, &TableModelDelegate::play_track, m_player, &QMediaPlayer::play);
 
 }
 
