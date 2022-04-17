@@ -29,7 +29,7 @@ QVariant Track::getListenings() const
 
 QList<QVariant> Track::getVarList() const
 {
-    return QList<QVariant>({name, genre, release_date, artist, listenings});
+    return QList<QVariant>({name, genre, release_date, artist, listenings, time, file_name});
 }
 
 Track::Track()

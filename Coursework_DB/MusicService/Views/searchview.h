@@ -24,6 +24,7 @@ public:
     void setArtistModel();
     void setTrackModel();
     virtual int getType() const override;
+    virtual AbstractTableData *getById(QVariant id); //for listening tracks
 
 private slots:
     void on_btnArtist_clicked();

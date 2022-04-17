@@ -268,8 +268,15 @@ void Controller::listenTrack(QVariant track_id)
             QMessageBox::warning(lv, "Ошибка", "Недостаточный баланс врмемени для прослушивания этого трека");
     else
     {
-        m_player->setMedia(QUrl::fromLocalFile("/home/julia/MS_files/Beautiful.mp3"));
-        ListenDialog *ld = new ListenDialog(m_player, baseWidget);
+        AbstractTableData *track = curWidget->getById(track_id);
+        if (track == NULL)
+            qDebug() << "track = NULL";
+        QList<QVariant> track_data = track->getVarList();
+       QString file_path = QStringLiteral("/home/julia/MS_files/%1").arg(track_data.at(6).toString());
+       qDebug() << file_path;
+
+        m_player->setMedia(QUrl::fromLocalFile(file_path));
+        ListenDialog *ld = new ListenDialog(m_player, track_data.at(0).toString(), baseWidget);
        // QMediaPlayer player(thi);
         //player.setVolume(70);
        // player.setMedia(QUrl::fromLocalFile("/home/julia/MS_files/Beautiful.mp3"));

@@ -23,6 +23,8 @@ public:
     AbstractView *getPrevView() const;
     void setPrevView(AbstractView *value);
 
+    virtual AbstractTableData *getById(QVariant id); //for listening tracks
+
 private slots:
     void on_btnMenu_clicked();
     void on_btnMenu_2_clicked();

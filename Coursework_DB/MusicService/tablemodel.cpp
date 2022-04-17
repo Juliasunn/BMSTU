@@ -81,6 +81,14 @@ QVariant TableModel::getId(const QModelIndex &index, int role) const
     return QVariant();
 }
 
+AbstractTableData *TableModel::getById(QVariant id)
+{
+    for (int i = 0; i < trackList.size(); i++)
+        if (trackList.at(i)->getId() == id)
+            return trackList.at(i);
+    return NULL;
+}
+
 void TableModel::resetData(const QList<AbstractTableData *> trackList_)
 {
     beginResetModel(); //beginResetModel и endResetModel() чтобы кол-во строк в таблице тоже поменялось. Методы QAbstractItemModel

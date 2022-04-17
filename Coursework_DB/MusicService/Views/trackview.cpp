@@ -67,6 +67,12 @@ void TrackView::setPrevView(AbstractView *value)
     prevView = value;
 }
 
+AbstractTableData *TrackView::getById(QVariant id)
+{
+    qDebug() << "TrackView::getById" << id;
+    return trackTable->getById(id);
+}
+
 void TrackView::on_btnMenu_2_clicked()
 {
     emit to_previous(prevView);

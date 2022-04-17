@@ -1,4 +1,4 @@
-#include "searchview.h"
+﻿#include "searchview.h"
 #include "ui_searchview.h"
 
 SearchView::SearchView(QWidget *parent/*, TableModel *atm, TableModel *ttmTableModelDelegate *md*/) :
@@ -81,5 +81,10 @@ void SearchView::setTrackModel()
 int SearchView::getType() const
 {
     return type;
+}
+
+AbstractTableData *SearchView::getById(QVariant id)
+{
+    return trackTM->getById(id);
 }
 

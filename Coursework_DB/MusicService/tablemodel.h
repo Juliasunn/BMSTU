@@ -24,6 +24,7 @@ public:
     virtual QVariant data(const QModelIndex &index, int role=Qt::DisplayRole) const override;
 
     virtual QVariant getId(const QModelIndex &index, int role=Qt::DisplayRole) const; //for getting an id inside delegate
+    virtual AbstractTableData *getById(QVariant id); //for listening tracks
     virtual void resetData(const QList<AbstractTableData *> trackList_);
 };
 

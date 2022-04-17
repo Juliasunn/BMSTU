@@ -13,7 +13,8 @@ class ListenDialog : public QDialog
     Q_OBJECT
 
 public:
-    explicit ListenDialog(QMediaPlayer *m_player, QWidget *parent = nullptr);
+    explicit ListenDialog(QMediaPlayer *m_player, QString track_name = QString("uncknown"),
+                          QWidget *parent = nullptr);
     ~ListenDialog();
 
 private slots:

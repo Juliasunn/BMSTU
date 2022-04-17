@@ -1,6 +1,7 @@
 #ifndef ABSTRACTVIEW_H
 #define ABSTRACTVIEW_H
 #include <QWidget>
+#include <DataStructures/abstracttabledata.h>
 #include <QObject>
 #define LOGIN_V 1
 #define REG_V 2
@@ -16,6 +17,7 @@ class AbstractView : public QWidget
     Q_OBJECT
 public:
     explicit AbstractView(QWidget *parent = nullptr): QWidget(parent){};
+    virtual AbstractTableData *getById(QVariant id){return NULL;}; //for listening tracks
      virtual int getType() const;
 };
 
