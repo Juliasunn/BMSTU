@@ -1,8 +1,8 @@
 #ifndef CONTROLLER_H
 #define CONTROLLER_H
-#include "tablemodeldelegate.h"
+#include "Models/tablemodeldelegate.h"
 #include "repository.h"
-#include "listmodel.h"
+#include "Models/listmodel.h"
 
 #include "Views/loginview.h"
 #include "Views/regview.h"
@@ -34,6 +34,8 @@ private:
     LoginView *lv;
     RegView *rv;
 
+    ListenDialog *ld;
+
     TableModelDelegate *trackDelegate, *myTrackDelegate;
     TableModelDelegate *playlistDelegate;
     TableModelDelegate *artistDelegate;
@@ -49,6 +51,7 @@ private:
     void setupConnections();
 public:
     Controller(QWidget *widget, const Repository &repo);
+//    ~Controller();
 public slots:
     void showPlaylistView(QVariant var_id);
     void showArtistTr(QVariant id_art);

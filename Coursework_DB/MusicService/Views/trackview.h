@@ -1,8 +1,8 @@
 #ifndef TRACKVIEW_H
 #define TRACKVIEW_H
-#include "tablemodeldelegate.h"
+#include "Models/tablemodeldelegate.h"
 #include <QWidget>
-#include "tablemodel.h"
+#include "Models/tablemodel.h"
 #include "abstractview.h"
 #include <QMediaPlayer>
 #include <QMediaPlaylist>

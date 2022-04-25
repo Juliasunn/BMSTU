@@ -1,13 +1,13 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
-#include "tablemodel.h"
+#include "Models/tablemodel.h"
 #include <QAbstractItemModel>
 #include <QListView>
 #include <QTableView>
 #include <QStringListModel>
 #include <QApplication>
 #include <QMainWindow>
-#include "tablemodeldelegate.h"
+#include "Models/tablemodeldelegate.h"
 #include "DataStructures/artist.h"
 #include "DataStructures/playlist.h"
 #include "abstractview.h"

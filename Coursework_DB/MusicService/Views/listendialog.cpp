@@ -1,16 +1,21 @@
 #include "listendialog.h"
 #include "ui_listendialog.h"
 
-ListenDialog::ListenDialog(QMediaPlayer *m_player_,  QString track_name,
+ListenDialog::ListenDialog(QMediaPlayer *m_player_,
                            QWidget *parent) :
     QDialog(parent), m_player(m_player_),
     ui(new Ui::ListenDialog)
 {
    // setWindowTitle(QString("Воспроизведение"));
     ui->setupUi(this);
-    ui->trackName->setText(track_name);
+   // ui->trackName->setText(track_name);
     m_player->play();
     setWindowTitle(QString("Воспроизведение"));
+}
+
+void ListenDialog::setText(QString track_name)
+{
+    ui->trackName->setText(track_name);
 }
 
 ListenDialog::~ListenDialog()

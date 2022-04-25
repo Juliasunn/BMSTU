@@ -1,7 +1,7 @@
 #ifndef SEARCHVIEW_H
 #define SEARCHVIEW_H
-#include "tablemodeldelegate.h"
-#include "tablemodel.h"
+#include "Models/tablemodeldelegate.h"
+#include "Models/tablemodel.h"
 #include <QWidget>
 #include <QString>
 #include "abstractview.h"

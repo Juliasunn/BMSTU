@@ -36,6 +36,8 @@ void Controller::createViews()
     tv = new TrackView(baseWidget, trackDelegate);
     pv = new PlaylistView(baseWidget, playlistDelegate);
     sv = new SubscribeView(baseWidget, subscrDelegate);
+
+    ld = new ListenDialog(m_player, baseWidget);
 }
 
 void Controller::setupConnections()
@@ -81,14 +83,15 @@ void Controller::setupConnections()
 Controller::Controller(QWidget *baseWidget_, const Repository &repo_) : baseWidget(baseWidget_),
     repo(repo_)
 {
+    m_player = new QMediaPlayer();
+    m_player->setVolume(70);
+
     this->createDelegates();
     this->createViews();
 
     curWidget = lv;
     curWidget->show();
 
-    m_player = new QMediaPlayer(this);
-    m_player->setVolume(70);
     this->setupConnections();
 }
 
@@ -228,20 +231,24 @@ void Controller::showLoginView()
 void Controller::find_artust(QString name, bool popular_fl, bool ntrack_fl)
 {
     qDebug() << "Controller::find_artust"<<name << popular_fl << ntrack_fl;
-
     search_v->setArtistModel();
 
-    search_v->setData(repo.getArtists(popular_fl, ntrack_fl));
+    if (name == QString())
+        search_v->setData(repo.getArtists(popular_fl, ntrack_fl));
+    else
+        search_v->setData(repo.searchArtists(name));
     search_v->setDelegate(artistDelegate);
 }
 
 void Controller::find_track(QString name, bool popular_fl, bool date_fl, GenreFlags gf)
 {
     qDebug() << "Controller::find_track"<<name << popular_fl << date_fl;
+     search_v->setTrackModel();
 
-    search_v->setTrackModel();
-
-    search_v->setData(repo.getTracks(popular_fl, date_fl, gf));
+    if (name == QString())
+        search_v->setData(repo.getTracks(popular_fl, date_fl, gf));
+    else
+        search_v->setData(repo.searchTracks(name));
     search_v->setDelegate(trackDelegate);
 }
 
@@ -276,14 +283,9 @@ void Controller::listenTrack(QVariant track_id)
        qDebug() << file_path;
 
         m_player->setMedia(QUrl::fromLocalFile(file_path));
-        ListenDialog *ld = new ListenDialog(m_player, track_data.at(0).toString(), baseWidget);
-       // QMediaPlayer player(thi);
-        //player.setVolume(70);
-       // player.setMedia(QUrl::fromLocalFile("/home/julia/MS_files/Beautiful.mp3"));
-       // player.play();
+        m_player->play();
+        ld->setText(track_data.at(0).toString());
         ld->show();
-
-       // m_player->play();
     }
 
 

@@ -21,8 +21,8 @@
 // InsertInfo::insert_playlist(con, "added1", 3);
 
 //GetInfo::get_tracks_by_artist(con, 3);
-//GetInfo::get_artists_by_name(con, "The Neiborhood");
-//GetInfo::get_tracks_by_name(con, "Reflections");
+
+
 // GetInfo::get_available_subscribes(con, 2);
 //GetInfo::get_cur_subscribe(con, 2);
 //GetInfo::get_playlists(con, 1);
@@ -90,6 +90,12 @@ QList<AbstractTableData *> Repository::getArtists(bool popular_fl, bool ntrack_f
     return artistList;
 }
 
+QList<AbstractTableData *> Repository::searchArtists(QString name)
+{
+    QList<AbstractTableData *> artist = GetInfo::get_artists_by_name(con, name);
+    return artist;
+}
+
 QList<AbstractTableData *> Repository::getTracksByPlaylist(int id)
 {
     QList<AbstractTableData *> t = GetInfo::get_tracks_by_playlist(con, id);
@@ -109,6 +115,12 @@ QList<AbstractTableData *> Repository::getTracks(bool popular_fl, bool date_fl, 
     trackList = GetInfo::get_tracks_with_filter(con, popular_fl, date_fl, gf);
 
     return trackList;
+}
+
+QList<AbstractTableData *> Repository::searchTracks(QString name)
+{
+    QList<AbstractTableData *> tracks = GetInfo::get_tracks_by_name(con, name);
+    return tracks;
 }
 
 QList<AbstractTableData *> Repository::getPlaylists(int id_user)
@@ -147,7 +159,7 @@ bool Repository::addListening(int id_user, int id_track)
     {
         qDebug()<< "[Repository] user have enough time to listen";
         InsertInfo::insert_listerning(con, id_user, id_track);
-        UpdateInfo::update_listern_time(con, id_user, id_track);
+       // UpdateInfo::update_listern_time(con, id_user, id_track); выполняется триггером
         return true;
 
     }

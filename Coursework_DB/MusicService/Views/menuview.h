@@ -2,7 +2,7 @@
 #define MENUVIEW_H
 #include <QVariant>
 #include <QWidget>
-#include "listmodel.h"
+#include "Models/listmodel.h"
 #include "abstractview.h"
 #include "DataStructures/abstracttabledata.h"
 #define ALL 0

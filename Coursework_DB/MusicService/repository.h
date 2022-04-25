@@ -31,11 +31,13 @@ public:
     AbstractTableData *get_curSubscr(int id_user);
 
     QList<AbstractTableData *> getArtists(bool popular_fl, bool ntrack_fl);
+    QList<AbstractTableData *> searchArtists(QString name);
 
     QList<AbstractTableData *> getTracksByPlaylist(int id);
     QList<AbstractTableData *> getTracksbyArtist(int id);
 
     QList<AbstractTableData *> getTracks(bool popular_fl, bool date_fl, GenreFlags gf);
+    QList<AbstractTableData *> searchTracks(QString name);
 
     QList<AbstractTableData *> getPlaylists(int id_user);
 

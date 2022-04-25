@@ -27,6 +27,9 @@ SOURCES += \
     DataStructures/subscribe.cpp \
     DataStructures/track.cpp \
     DataStructures/user.cpp \
+    Models/listmodel.cpp \
+    Models/tablemodel.cpp \
+    Models/tablemodeldelegate.cpp \
     Views/abstractview.cpp \
     Views/listendialog.cpp \
     Views/loginview.cpp \
@@ -38,11 +41,8 @@ SOURCES += \
     Views/subscribeview.cpp \
     Views/trackview.cpp \
     controller.cpp \
-    listmodel.cpp \
     main.cpp \
     repository.cpp \
-    tablemodel.cpp \
-    tablemodeldelegate.cpp \
 
 HEADERS += \
     AccessDB/checkinfo.h \
@@ -58,6 +58,9 @@ HEADERS += \
     DataStructures/subscribe.h \
     DataStructures/track.h \
     DataStructures/user.h \
+    Models/listmodel.h \
+    Models/tablemodel.h \
+    Models/tablemodeldelegate.h \
     Views/abstractview.h \
     Views/listendialog.h \
     Views/loginview.h \
@@ -69,10 +72,7 @@ HEADERS += \
     Views/subscribeview.h \
     Views/trackview.h \
     controller.h \
-    listmodel.h \
     repository.h \
-    tablemodel.h \
-    tablemodeldelegate.h \
 
 FORMS += \
     Views/listendialog.ui \

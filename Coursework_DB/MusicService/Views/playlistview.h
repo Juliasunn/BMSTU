@@ -1,8 +1,8 @@
 #ifndef PLAYLISTVIEW_H
 #define PLAYLISTVIEW_H
-#include "tablemodeldelegate.h"
+#include "Models/tablemodeldelegate.h"
 #include <QWidget>
-#include "tablemodel.h"
+#include "Models/tablemodel.h"
 #include "abstractview.h"
 namespace Ui {
 class PlaylistView;
