@@ -11,6 +11,7 @@ ListenDialog::ListenDialog(QMediaPlayer *m_player_,
    // ui->trackName->setText(track_name);
     m_player->play();
     setWindowTitle(QString("Воспроизведение"));
+    this->connect(this, &QDialog::rejected, this, &ListenDialog::reject);
 }
 
 void ListenDialog::setText(QString track_name)
@@ -23,6 +24,13 @@ ListenDialog::~ListenDialog()
     m_player->stop();
     delete ui;
 
+}
+
+void ListenDialog::reject()
+{
+    m_player->stop();
+    this->hide();
+    qDebug() << "reject called";
 }
 
 void ListenDialog::on_pushButton_clicked()

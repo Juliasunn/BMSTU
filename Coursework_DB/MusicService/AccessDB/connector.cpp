@@ -6,8 +6,11 @@ Connector::Connector()
     db.setDatabaseName("music");
     db.setUserName("julia");
     db.setPassword("201228");
+}
 
-
+Connector::~Connector()
+{
+    db.close();
 }
 
 int Connector::open_connection()

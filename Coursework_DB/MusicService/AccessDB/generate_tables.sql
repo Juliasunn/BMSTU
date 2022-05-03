@@ -75,38 +75,21 @@ CREATE TABLE IF NOT EXISTS Listening
 	FOREIGN KEY (id_user) REFERENCES MUser(id)
 );
 
---insert into Listening (id, lst_date, id_track, id_user) VALUES ((select count(*)+1 from Listening), CURRENT_DATE, 3, 1);
---select * from Subscribe where id != (select id_subscr from MUser where id = '2');
---select * from Track left inner join PT on Track.id=PT.id_track where id_playlist = 3;
+create function check_subscribe_expiled() returns trigger as $check_subscribe_expiled$	
+begin
+	if ((select subscr_end from MUser where MUser.id=new.id_user) > CURRENT_DATE) then --change subscribe into base
+		update MUser set time_listerned = '00:00:00',
+                                 id_subscr = 1, subscr_end = subscr_end + interval '%1 month' where MUser.id = new.id_user;
+        end if;
+	return new;
+end;
+$check_subscribe_expiled$
+language plpgsql ;
+	
 
---select Playlist.id, name, count(*) as num_track
---from Playlist join PT on
---Playlist.id=PT.id_playlist 
---where Playlist.id_user = 1 group by Playlist.id;
 
---select Track.id, Track.name, Genre.name, Track.release_date,
---Artist.name, count(*) as n_listerned
---from Track join Genre on Track.id_genre=Genre.id
---join Artist on Track.id_artist=Artist.id
---join Listening on Track.id=Listening.id_track
---where id_artist = 3
---group by Track.id, Genre.name, Track.release_date, Artist.name;
-
---select Track.id, Track.name, Genre.name, Track.release_date, Artist.name, count(*) as n_listerned from Track left join Genre on Track.id_genre=Genre.id left join Artist on---Track.id_artist=Artist.id left join Listening on Track.id=Listening.id_track join PT on PT.id_track=Track.id where id_playlist = 3 group by Track.id, Genre.name, Track.release_date, Artist.name;
-
---select Artist.id, Artist.name, count(distinct(Track.id)), count(distinct(Listening.id)) as n_track from Artist left join Track on Track.id_artist=Artist.id left join Listening on ------Track.id=Listening.id_track
---where Artist.id = 3 group by Artist.id, Artist.name;
-
-С ДАТАМИ
-select CURRENT_DATE+interval '1 month';
-
-select Track.id, Track.name, Genre.name, Track.release_date, Artist.name,  count(distinct(Listening.id)) as n_listerned from Track join Genre on Track.id_genre=Genre.id join Artist on Track.id_artist=Artist.id left join Listening on Track.id=Listening.id_trackgroup by Track.id, Genre.name, Track.release_date, Artist.name
-
-delete from Playlist where id = 6 cascade;
-
-insert into PT (id, id_playlist, id_track) VALUES ((select count(*)+1 from PT), 6, 3);
-
-select * from MUser where (select max_time from Subscribe join MUser on MUser.id_subscr=Subscribe.id where MUser.id=1)-time_listerned <(select duration from Track where Track.id=3);
+create trigger check_subscribe_expiled before insert on Listening 
+for each row execute procedure check_subscribe_expiled();
 
 
 copy Genre from '/home/julia/AccessDB/tables_csv/genre.csv' delimiter ','; 

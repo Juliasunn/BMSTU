@@ -17,6 +17,8 @@ public:
                           QWidget *parent = nullptr);
     void setText(QString track_name);
     ~ListenDialog();
+public slots:
+    virtual void reject() override;
 
 private slots:
     void on_pushButton_clicked();

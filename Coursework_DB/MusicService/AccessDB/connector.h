@@ -13,6 +13,7 @@ private:
     QSqlDatabase db;
 public:
     Connector();
+    ~Connector();
     int open_connection();
     QList<QSqlRecord> exec_select(QString &query_text) const;
     bool exec_non_query(QString &query_text) const; //выпполняет инструкцию (добавление/удаление/обновление)

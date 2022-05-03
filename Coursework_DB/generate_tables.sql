@@ -72,6 +72,20 @@ CREATE TABLE IF NOT EXISTS Listening
 	FOREIGN KEY (id_user) REFERENCES MUser(id)
 );
 
+create function check_subscribe_expiled() returns trigger as $check_subscribe_expiled$	
+begin
+	if ((select subscr_end from MUser where MUser.id=new.id_user) > CURRENT_DATE) then --change subscribe into base
+		update MUser set time_listerned = '00:00:00',
+                                 id_subscr = 1, subscr_end = subscr_end + interval '%1 month' where MUser.id = new.id_user;
+        end if;
+	return new;
+end;
+$check_subscribe_expiled$
+language plpgsql ;
+	
+create trigger check_subscribe_expiled before insert on Listening 
+for each row execute procedure check_subscribe_expiled();
+
 create function update_user_time() returns trigger as $update_user_time$
 begin
 	 update MUser set time_listerned=time_listerned+(select duration from Track where id=new.id_track)
