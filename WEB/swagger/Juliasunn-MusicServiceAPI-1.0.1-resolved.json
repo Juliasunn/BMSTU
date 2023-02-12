@@ -1,0 +1,449 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "PE",
+    "description": "MyMusic",
+    "contact": {
+      "email": "nastya.vasileva.1954@mail.ru"
+    },
+    "version": "1.0.1"
+  },
+  "servers": [
+    {
+      "url": "https://virtserver.swaggerhub.com/Juliasunn/MusicServiceAPI/1.0.1",
+      "description": "SwaggerHub API Auto Mocking"
+    },
+    {
+      "url": "http://localhost/api/v1/"
+    },
+    {
+      "url": "http://localhost/mirror1/api/v1/",
+      "description": "MyMusic API"
+    }
+  ],
+  "tags": [
+    {
+      "name": "traks",
+      "description": "info about tracks"
+    },
+    {
+      "name": "user",
+      "description": "user of the application"
+    },
+    {
+      "name": "favorites",
+      "description": "favorite track of user"
+    }
+  ],
+  "paths": {
+    "/traks": {
+      "get": {
+        "tags": [
+          "traks"
+        ],
+        "summary": "Returns a list of traks.",
+        "parameters": [
+          {
+            "name": "trak name",
+            "in": "query",
+            "description": "name of trak that user wants to find.",
+            "required": false,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TraksList"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/traks/trak": {
+      "get": {
+        "tags": [
+          "traks"
+        ],
+        "summary": "Returns a trak by Id.",
+        "parameters": [
+          {
+            "name": "trakId",
+            "in": "query",
+            "description": "Id of the trak that user wants to listen.",
+            "required": true,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Trak"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "trak with this id not found"
+          }
+        }
+      }
+    },
+    "/user/registration": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Register a user",
+        "requestBody": {
+          "description": "new user account data.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/User"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid username/password supplied"
+          }
+        }
+      }
+    },
+    "/user/login": {
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Logs user in app",
+        "parameters": [
+          {
+            "name": "login",
+            "in": "query",
+            "description": "user login.",
+            "required": true,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "password",
+            "in": "query",
+            "description": "user password.",
+            "required": true,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid username/password supplied"
+          }
+        }
+      }
+    },
+    "/user/account": {
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Returns account data of logged user",
+        "responses": {
+          "200": {
+            "description": "success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "User was not authorized"
+          }
+        },
+        "security": [
+          {
+            "jwt_auth": []
+          }
+        ]
+      },
+      "put": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Changes account data of logged user",
+        "parameters": [
+          {
+            "name": "password",
+            "in": "query",
+            "description": "new user password.",
+            "required": true,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "success"
+          },
+          "401": {
+            "description": "User was not authorized"
+          },
+          "404": {
+            "description": "Invalid new password supplied"
+          }
+        },
+        "security": [
+          {
+            "jwt_auth": []
+          }
+        ]
+      }
+    },
+    "/favorites": {
+      "get": {
+        "tags": [
+          "favorites"
+        ],
+        "summary": "Returns list of favorite tracks of a user.",
+        "responses": {
+          "200": {
+            "description": "success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TraksList"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "User was not authorized"
+          }
+        },
+        "security": [
+          {
+            "jwt_auth": []
+          }
+        ]
+      }
+    },
+    "/favorites/trak": {
+      "get": {
+        "tags": [
+          "favorites"
+        ],
+        "summary": "Returns a trak from favorite.",
+        "parameters": [
+          {
+            "name": "trakId",
+            "in": "query",
+            "description": "Id of the trak that user wants to add tp favorites.",
+            "required": true,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Trak"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "trak with this id not found"
+          },
+          "401": {
+            "description": "User was not authorized"
+          }
+        },
+        "security": [
+          {
+            "jwt_auth": []
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "favorites"
+        ],
+        "summary": "add trak to  favorites",
+        "parameters": [
+          {
+            "name": "trakId",
+            "in": "query",
+            "description": "Id of the trak that user wants to add tp favorites.",
+            "required": true,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "success"
+          },
+          "401": {
+            "description": "User was not authorized"
+          },
+          "404": {
+            "description": "trak with this id not found"
+          }
+        },
+        "security": [
+          {
+            "jwt_auth": []
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "favorites"
+        ],
+        "summary": "delete trak from favorites",
+        "parameters": [
+          {
+            "name": "trakId",
+            "in": "query",
+            "description": "Id of the trak that user wants to delete from  favorites.",
+            "required": true,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "success"
+          },
+          "401": {
+            "description": "User was not authorized"
+          },
+          "404": {
+            "description": "trak not found in user's favorites"
+          }
+        },
+        "security": [
+          {
+            "jwt_auth": []
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Trak": {
+        "type": "object",
+        "properties": {
+          "Id": {
+            "type": "integer",
+            "example": 4
+          },
+          "Name": {
+            "type": "string",
+            "example": "Sweather weather"
+          },
+          "Artist": {
+            "type": "string",
+            "example": "The neiborhood"
+          },
+          "Genre": {
+            "type": "string",
+            "example": "indi"
+          },
+          "FileUrl": {
+            "type": "string",
+            "example": "SweatherWeather.mp3"
+          }
+        }
+      },
+      "TraksList": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/Trak"
+        }
+      },
+      "User": {
+        "type": "object",
+        "properties": {
+          "login": {
+            "type": "string",
+            "example": "Juliasunn"
+          },
+          "password": {
+            "type": "string",
+            "example": "password123"
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "jwt_auth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  }
+}

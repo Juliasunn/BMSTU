@@ -1,0 +1,4 @@
+Server:MyMusicAPI
+Access-Control-Allow-Methods:GET,DELETE,PUT,POST
+Access-Control-Allow-Origin:*
+Access-Control-Allow-Headers:Accept,Authorization,Cache-Control,Content-Type,DNT,If-Modified-Since,Keep-Alive,Origin,User-Agent,X-Requested-With

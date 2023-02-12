@@ -1,0 +1,582 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "PE",
+    "description": "MyMusic",
+    "contact": {
+      "email": "nastya.vasileva.1954@mail.ru"
+    },
+    "version": "1.0.2"
+  },
+  "servers": [
+    {
+      "url": "https://virtserver.swaggerhub.com/Juliasunn/MusicServiceAPI/1.0.2",
+      "description": "SwaggerHub API Auto Mocking"
+    },
+    {
+      "url": "http://localhost/api/v1/"
+    },
+    {
+      "url": "http://localhost/mirror1/api/v1/",
+      "description": "MyMusic API"
+    }
+  ],
+  "tags": [
+    {
+      "name": "traks",
+      "description": "info about tracks"
+    },
+    {
+      "name": "users",
+      "description": "user of the application"
+    },
+    {
+      "name": "favorites",
+      "description": "favorite track of user"
+    },
+    {
+      "name": "account",
+      "description": "account data of logged users"
+    }
+  ],
+  "paths": {
+    "/traks": {
+      "get": {
+        "tags": [
+          "traks"
+        ],
+        "summary": "Returns a list of traks.",
+        "parameters": [
+          {
+            "name": "trak name",
+            "in": "query",
+            "description": "name of trak that user wants to find.",
+            "required": false,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TraksList"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid data format"
+          },
+          "401": {
+            "description": "User was not authorized"
+          }
+        },
+        "security": [
+          {
+            "jwt_auth": []
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "traks"
+        ],
+        "summary": "Sends a new mp3 file to server and checks admimistrator rights.",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/traks_body"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "success"
+          },
+          "400": {
+            "description": "Invalid data format"
+          },
+          "401": {
+            "description": "User was not authorized"
+          },
+          "403": {
+            "description": "User has not rights for posting traks"
+          }
+        },
+        "security": [
+          {
+            "jwt_auth": []
+          }
+        ]
+      }
+    },
+    "/traks/{guid}": {
+      "get": {
+        "tags": [
+          "traks"
+        ],
+        "summary": "Returns a trak by guid.",
+        "parameters": [
+          {
+            "name": "guid",
+            "in": "path",
+            "description": "guid of the trak that user wants to get.",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Trak"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid data format"
+          },
+          "401": {
+            "description": "User was not authorized"
+          },
+          "404": {
+            "description": "trak not found"
+          }
+        },
+        "security": [
+          {
+            "jwt_auth": []
+          }
+        ]
+      }
+    },
+    "/users/registration": {
+      "post": {
+        "tags": [
+          "users"
+        ],
+        "summary": "Register a user",
+        "requestBody": {
+          "description": "users login and password.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AuthorizationData"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_200"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid data format"
+          },
+          "401": {
+            "description": "Invalid username/password supplied"
+          },
+          "409": {
+            "description": "User already exists"
+          }
+        }
+      }
+    },
+    "/users/login": {
+      "post": {
+        "tags": [
+          "users"
+        ],
+        "summary": "Logs user in app",
+        "requestBody": {
+          "description": "users login and password.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AuthorizationData"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_200"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid data format"
+          },
+          "401": {
+            "description": "Invalid username/password supplied"
+          }
+        }
+      }
+    },
+    "/account": {
+      "get": {
+        "tags": [
+          "account"
+        ],
+        "summary": "Returns account data of logged user",
+        "responses": {
+          "200": {
+            "description": "success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AccountData"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid data format"
+          },
+          "401": {
+            "description": "User was not authorized"
+          }
+        },
+        "security": [
+          {
+            "jwt_auth": []
+          }
+        ]
+      },
+      "patch": {
+        "tags": [
+          "account"
+        ],
+        "summary": "Changes account data of logged user",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/account_body"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "success"
+          },
+          "400": {
+            "description": "Invalid data format"
+          },
+          "401": {
+            "description": "User was not authorized"
+          },
+          "404": {
+            "description": "Account not found"
+          }
+        },
+        "security": [
+          {
+            "jwt_auth": []
+          }
+        ]
+      }
+    },
+    "/favorites": {
+      "get": {
+        "tags": [
+          "favorites"
+        ],
+        "summary": "Returns list of favorite tracks of a user.",
+        "responses": {
+          "200": {
+            "description": "success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TraksList"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid data format"
+          },
+          "401": {
+            "description": "User was not authorized"
+          }
+        },
+        "security": [
+          {
+            "jwt_auth": []
+          }
+        ]
+      }
+    },
+    "/favorites/{guid}": {
+      "get": {
+        "tags": [
+          "favorites"
+        ],
+        "summary": "Returns a trak from favorite.",
+        "parameters": [
+          {
+            "name": "guid",
+            "in": "path",
+            "description": "Id of the trak that user wants to add tp favorites.",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Trak"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid data format"
+          },
+          "401": {
+            "description": "User was not authorized"
+          },
+          "404": {
+            "description": "trak not found"
+          }
+        },
+        "security": [
+          {
+            "jwt_auth": []
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "favorites"
+        ],
+        "summary": "add trak to  favorites",
+        "parameters": [
+          {
+            "name": "guid",
+            "in": "path",
+            "description": "Id of the trak that user wants to add tp favorites.",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "success"
+          },
+          "400": {
+            "description": "Invalid data format"
+          },
+          "401": {
+            "description": "User was not authorized"
+          },
+          "404": {
+            "description": "trak not found"
+          }
+        },
+        "security": [
+          {
+            "jwt_auth": []
+          }
+        ]
+      },
+      "delete": {
+        "tags": [
+          "favorites"
+        ],
+        "summary": "delete trak from favorites",
+        "parameters": [
+          {
+            "name": "guid",
+            "in": "path",
+            "description": "Id of the trak that user wants to delete from  favorites.",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "success"
+          },
+          "400": {
+            "description": "Invalid data format"
+          },
+          "401": {
+            "description": "User was not authorized"
+          },
+          "404": {
+            "description": "trak not found"
+          }
+        },
+        "security": [
+          {
+            "jwt_auth": []
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Trak": {
+        "type": "object",
+        "properties": {
+          "Guid": {
+            "type": "integer",
+            "example": 4
+          },
+          "Name": {
+            "type": "string",
+            "example": "Sweather weather"
+          },
+          "Artist": {
+            "type": "string",
+            "example": "The neiborhood"
+          },
+          "Genre": {
+            "type": "string",
+            "example": "indi"
+          },
+          "FileUrl": {
+            "type": "string",
+            "example": "SweatherWeather.mp3"
+          }
+        }
+      },
+      "TraksList": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/Trak"
+        }
+      },
+      "User": {
+        "type": "object",
+        "properties": {
+          "login": {
+            "type": "string",
+            "example": "Juliasunn"
+          },
+          "password": {
+            "type": "string",
+            "example": "password123"
+          },
+          "priveledges": {
+            "type": "string",
+            "example": "administrator"
+          }
+        }
+      },
+      "AuthorizationData": {
+        "type": "object",
+        "properties": {
+          "login": {
+            "type": "string",
+            "example": "Juliasunn"
+          },
+          "password": {
+            "type": "string",
+            "example": "password123"
+          }
+        }
+      },
+      "AccountData": {
+        "type": "object",
+        "properties": {
+          "login": {
+            "type": "string",
+            "example": "Juliasunn"
+          },
+          "password": {
+            "type": "string",
+            "example": "password123"
+          }
+        }
+      },
+      "traks_body": {
+        "type": "object",
+        "properties": {
+          "Name": {
+            "type": "string"
+          },
+          "Artist": {
+            "type": "string"
+          },
+          "Genre": {
+            "type": "string"
+          },
+          "FileMP3": {
+            "type": "string",
+            "format": "binary"
+          }
+        }
+      },
+      "inline_response_200": {
+        "type": "object",
+        "properties": {
+          "Token": {
+            "type": "string"
+          }
+        }
+      },
+      "account_body": {
+        "type": "object",
+        "properties": {
+          "NewPassword": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "jwt_auth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  }
+}
