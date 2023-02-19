@@ -1,0 +1,117 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+body {
+    display: flex;
+    background-color:rgb(9, 9, 73);
+    place-items: center;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.buttonContainer {
+    display: flex;
+    align-self: center;
+    margin-top: 20px;
+    background-color:rgb(105, 105, 105);
+    place-items: center;
+    align-items: center;
+    justify-content: center;
+    font-size: large;
+    border-radius: 12px;
+    height: 40px;
+    width:  180px;
+    opacity: 0.3;
+}
+
+
+main .PlayBtn {
+    transform: scale(1.6);
+}
+
+main .AddDelBtn {
+    transform: scale(1.6);
+}
+
+main .PlayBtn:hover,
+main .AddDelBtn:hover {
+    scale: 1.3;
+}
+
+.ImSearch {
+    transform: scale(1.6); 
+    color:rgb(105, 105, 105);
+    align-self: center;
+    margin-right: 8px;
+}
+
+.ImPlay2,
+.ImPause,
+.IoPlayBack,
+.IoPlayForward{
+    transform: scale(2.8);
+    color: rgba(4, 206, 206, 0.885);
+    box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+    margin-left: 25px;
+    margin-right: 25px;
+    margin-bottom: 5px;
+
+}
+
+.RiMenuFoldFill:hover,
+.ImPlay2:hover,
+.ImPause:hover,
+.IoPlayBack:hover,
+.IoPlayForward:hover{
+    color: rgb(140, 255, 255);
+
+}
+
+.RiMenuFoldFill {
+    color:cyan;
+    transform: scale(4);
+    margin-left: 40px;
+    margin-top: 40px;
+    position: absolute;
+    cursor: pointer;
+
+}
+
+
+/* For Webkit-based browsers (Chrome, Safari and Opera) */
+.scrollbar-hide::-webkit-scrollbar {
+    display: none;
+}
+
+/* For IE, Edge and Firefox */
+.scrollbar-hide {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+
+
+progress {
+    /* style rules */
+    background-color: rgba(0, 0, 0, 0.467);
+    box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+    border-radius: 0.5rem; 
+    }
+    progress::-webkit-progress-bar {
+        background-color: rgba(0, 0, 0, 0.467);
+        box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+        border-radius: 0.5rem; 
+    }
+
+
+progress::-webkit-progress-value {background-color: rgba(0, 255, 255, 0.493) !important;
+    box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+    border-radius: 0.5rem; }
+progress::-moz-progress-bar {background-color: rgba(0, 255, 255, 0.503) !important;
+    box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+    border-radius: 0.5rem; }
+progress {color: rgba(0, 255, 255, 0.49);
+box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+border-radius: 0.5rem; }
